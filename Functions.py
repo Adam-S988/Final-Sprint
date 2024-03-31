@@ -1,13 +1,51 @@
 ## DESCRIPTION: Collection of useful Python functions for input/validation scenarios
-## Date: 03/30/2024
-## Group Name: Nine
+## DATE CREATED: 03/30/2024
+## DATE LAST MODIFIED: 03/31/2024
+## GROUP NUMBER: Nine
 
-#import required to be added to main program to ensure these functions work
+#import required to be added to main program for ensuring these functions work
 import string
+from datetime import datetime, timedelta
+
+# A function for streamlining the date collection process into its own "loop"
+def collect_date_info():
+    """
+    Prompts the user to individually enter the month, day, and year of a date, and returns these components.
+
+    Returns:
+        tuple: A tuple containing the month, day, and year entered by the user.
+    """
+    
+    month = prompt_and_validate("Enter the month (MM): ", 'month', "Please enter a valid month.")
+    day = prompt_and_validate("Enter the day (DD): ", 'day', "Please enter a valid day.")
+    year = prompt_and_validate("Enter the year (YYYY): ", 'year', "Please enter a valid year.")
+    return month, day, year
+
+# Joins dates together and then validates
+def validate_full_date():
+    """
+    Continuously prompts the user to enter the components of a date until a valid date is entered.
+    Validates the assembled date to ensure it's a real date (e.g., not February 30th).
+
+    Returns:
+        str: The valid date in mm/dd/yyyy format.
+    """
+    valid_date = False
+    while not valid_date:        
+        month, day, year = collect_date_info()
+        try:
+            # Attempt to create a datetime object with the given inputs to validate the date
+            new_date = datetime.datetime(int(year), int(month), int(day))
+            valid_date = True
+        except ValueError:
+            # If an exception is caught, it means the date is invalid
+            print("The entered date is not valid. Please try again.")
+    # Return the valid date in mm/dd/yyyy format
+    return new_date, new_date.strftime("%m/%d/%Y")
 
 
 # Helper Function #1
-# function for onfirming inputs before proceeding
+# function for confirming inputs before proceeding
 def get_confirmation_for_input(input_value):
     """
     Asks the user to confirm the given input value, using the Yes/No validation from is_valid_input.
@@ -120,6 +158,7 @@ def is_valid_input(input_value, validation_types):
     SHORT_VAR_MAX_LENGTH = 5  # Used to ensure specific "smaller" variables dont exceed their own respected lengths
     EARLIEST_YEAR = 1900  # Earliest year that will return valid    
     LATEST_YEAR = 2150    # Latest year that will return valid
+    
 
     # Ensure validation_types is a list for consistent processing
     if isinstance(validation_types, str):
@@ -131,97 +170,105 @@ def is_valid_input(input_value, validation_types):
     # Check for non-empty input as a basic validation
     if not input_value:
         return False, "Input cannot be blank."
-
-    # Iterate over each specified validation type and apply the corresponding validation
-    for validation_type in validation_types:
+    
+    # Iterate over each specified validation rule in the validaion types list, and apply the corresponding validation(s)
+    for validation_rule in validation_types:
+        # Handling dynamic validation rules for min/max values by detecting the ":"
+        if ':' in validation_rule:
+            rule, str_value = validation_rule.split(':')
+            try:
+                numeric_value = float(input_value)
+                limit_value = float(str_value)
+                
+                # Minimum value allowed to be entered
+                if rule == 'min_value' and numeric_value < limit_value:
+                    return False, f"Value must be at least {str_value}."
+                # Max value allowed to be entered
+                elif rule == 'max_value' and numeric_value > limit_value:
+                    return False, f"Value cannot exceed {str_value}."
+            except ValueError:
+                return False, "Invalid numeric value for range validation."    
+    
 
         # The 'empty' validation type is redundant with the initial non-empty check and can be removed or adjusted.
-        if validation_type == 'empty':
-            if len(input_value) < 1:
-                return False, "Input Can not be blank" 
+        elif validation_rule == 'empty' and len(input_value) < 1:
+                return False, "Data Entry Error - Input Can not be blank" 
 
         # Validate against a maximum length for 'long' type inputs    
-        elif validation_type == 'long':
-            if len(input_value) > LONG_VAR_MAX_LENGTH:
-                return False, "Input exceeds the maximum allowed length of 10 characters."
+        elif validation_rule == 'long' and len(input_value) > LONG_VAR_MAX_LENGTH:
+                return False, "Data Entry Error - Input exceeds the maximum allowed length of 14 characters."
 
         # Validate against a maximum length for 'short' type inputs    
-        elif validation_type == 'short':
-            if len(input_value) > SHORT_VAR_MAX_LENGTH :
-                return False, "Input exceeds the maximum allowed length of 5 characters."
+        elif validation_rule == 'short'and len(input_value) > SHORT_VAR_MAX_LENGTH:
+                return False, "Data Entry Error - Input exceeds the maximum allowed length of 5 characters."        
         
         # Validate against character set for names
-        elif validation_type == 'name':
-            if not set(input_value).issubset(ALLOWED_NAME_CHARACTERS):
-                return False, "Invalid name. Please use only allowed characters."
+        elif validation_rule == 'name' and not set(input_value).issubset(ALLOWED_NAME_CHARACTERS):
+                return False, "Data Entry Error - Please use only allowed characters."
 
         # Validate phone numbers for digit count and ensuring if it is a numeric value    
-        elif validation_type == 'phone_number':
-            if not (len(input_value) == PHONE_NUMBER_LENGTH and input_value.isdigit()):
-                return False, "Invalid phone number. Please enter a 10-digit numeric phone number."
+        elif validation_rule == 'phone_number' and not (len(input_value) == PHONE_NUMBER_LENGTH and input_value.isdigit()):
+                return False, "Data Entry Error - Please enter a 10-digit numeric phone number."
 
         # Validate province against a set of valid abbreviations    
-        elif validation_type == 'province':
-            if input_value.upper() not in VALID_PROVINCES:
-                return False, "Invalid province. Please enter a valid abbreviation."
+        elif validation_rule == 'province' and input_value.upper() not in VALID_PROVINCES:
+                return False, "Data Entry Error - Please enter a valid province abbreviation."
 
         # Validate postal codes for length and specific format    
-        elif validation_type == 'postal_code':
-            if not (len(input_value) == POSTAL_CODE_LENGTH and input_value[0].isalpha() and input_value[1].isdigit()):
-                return False, "Invalid postal code format."
+        elif validation_rule == 'postal_code'and not (len(input_value) == POSTAL_CODE_LENGTH and input_value[0].isalpha() and input_value[1].isdigit()):
+                return False, "Data Entry Error - Invalid postal code format."
 
         # Validate yes/no inputs    
-        elif validation_type == 'yes_no':
-            if input_value.lower() not in ['y', 'n']:
+        elif validation_rule == 'yes_no' and input_value.lower() not in ['y', 'n']:
                 return False, "Data Entry Error - Answer Yes or No by typing Y or N."
 
-        # Validate day of the month    
-        elif validation_type == 'day':
+        # Validate day  
+        elif validation_rule == 'day':
             try:
                 day = int(input_value)
                 if not 1 <= day <= 31:
-                    return False, "Invalid day. Please enter a value between 1 and 31."
+                    return False, "Data Entry Error - Invalid day. Please enter a value between 1 and 31."
             except ValueError:
-                return False, "Invalid day. Please enter a numeric value."
+                return False, "Data Entry Error - Invalid day. Please enter a numeric value."
 
         # Validate month    
-        elif validation_type == 'month':
+        elif validation_rule == 'month':
             try:
                 month = int(input_value)
                 if not 1 <= month <= 12:
-                    return False, "Invalid month. Please enter a value between 1 and 12."
+                    return False, "Data Entry Error - Please enter a value between 1 and 12."
             except ValueError:
-                return False, "Invalid month. Please enter a numeric value."
+                return False, "Data Entry Error - Please enter a numeric value."
 
         # Validate year within a specific range    
-        elif validation_type == 'year':
+        elif validation_rule == 'year':
             try:
                 year = int(input_value)
                 if not EARLIEST_YEAR <= year <= LATEST_YEAR:
                     return False, "Invalid year. Please enter a value between 1900 and 2150."
             except ValueError:
-                return False, "Invalid year. Please enter a numeric value."
+                return False, "Data Entry Error - Please enter a numeric value."
 
         # Validate positive integers    
-        elif validation_type == 'positive_integer':
+        elif validation_rule == 'positive_integer':
             if not (input_value.isdigit() and int(input_value) > 0):
-                return False, "Invalid input. Please enter a positive integer."
+                return False, "Data Entry Error - Invalid input. Please enter a positive integer."
             
         # Validate positive floating-point numbers    
-        elif validation_type == 'positive_float':
+        elif validation_rule == 'positive_float':
             try:
                 value = float(input_value)
                 if value <= 0:
                     return False, "Value must be a positive float."
             except ValueError:
-                return False, "Invalid input. Please enter a valid floating-point number."
+                return False, "Data Entry Error - Please enter a valid floating-point number."
             
     # If all validations pass, return True with a generic success message    
     return True, "Valid input."
 
 
 # This is to just provide an example of how to use the "helper" functions
-# This function can be renamed/repurposed for any input collection scenario)
+# This function can be renamed/repurposed for any input collection scenario
 def collect_user_info():
     """
     This function asks the user a bunch of questions to get their information. Like their name, address, etc. 
@@ -236,7 +283,7 @@ def collect_user_info():
     variableName = prompt_and_validate(
     "prompt here" ---------------> replaces the input() stuff
     ['validationType, etc'] -----> This is a list, in which you enter what types of validations you want to use(ie name, address, etc)
-    "error message here" --------> This is a secondary error message. The validation function will return the error based upon the validation type, so i recommend using the section for suggisting/listing correct inputs.
+    "error message here" --------> This is a secondary error message. The validation function will return the error based upon the validation type, so I recommend using this section for suggesting/listing correct inputs.
     )   
 
     Returns:
@@ -293,6 +340,22 @@ def collect_user_info():
         "Please enter a valid 10-digit numeric phone number without any spaces or special characters."
     )
 
+    # Collects day, month, year, and assembles/validates as a full date, then calculates the age based on today's date.
+    date_of_birth_datetime, date_of_birth = validate_full_date()
+    today = datetime.datetime.today()
+    age = today.year - date_of_birth_datetime.year - ((today.month, today.day) < (date_of_birth_datetime.month, date_of_birth_datetime.day))
+
+    '''
+    This is an example of how numbers can be input/validated
+
+    price = prompt_and_validate(
+    "Please enter the price: ",
+    ['min_value:10', 'max_value:100'],
+    "Please enter a valid price between $10 and $100."
+)   '''
+
+
+
     # Compile all collected and validated inputs into a dictionary for easy access, storage, and manipulation
     return {
         'first_name': first_name,
@@ -302,5 +365,7 @@ def collect_user_info():
         'province': province,
         'postal_code': postal_code,
         'phone_number': phone_number,
+        'date_of_birth': date_of_birth,
+        'age':age
     }
 
