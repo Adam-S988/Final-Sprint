@@ -190,7 +190,7 @@ def is_valid_input(input_value, validation_types):
                 return False, "Invalid numeric value for range validation."    
     
 
-        # The 'empty' validation type is redundant with the initial non-empty check and can be removed or adjusted.
+        # The 'empty' validation type is used when no validations types are needed other ensuring no blank input
         elif validation_rule == 'empty' and len(input_value) < 1:
                 return False, "Data Entry Error - Input Can not be blank" 
 
