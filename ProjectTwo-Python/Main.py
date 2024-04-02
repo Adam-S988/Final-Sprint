@@ -2,8 +2,10 @@
 ## DATE: 03/29/2024 - 
 ## GROUP: Nine
 
+import Functions as FV
+import SnFunctions as SN
 
-
+defaults = FV.read_defaults()
 
 
 ### EMPTY MAIN MENU ###
@@ -24,7 +26,31 @@ def main_menu():
         choice = input("Enter your choice (1-9): ")
         
         if choice == '1':
-            program1()
+            
+            # Read default settings, specifically looking for the next available driver number
+            
+            next_driver_number = int(defaults['Next driver number'])
+
+            # Collect user information through the employee functions module
+            user_info = SN.collect_user_info()
+            license_info = SN.collect_and_validate_drivers_license(user_info)
+            
+            # Update user_info with license information and the next driver number
+            user_info.update(license_info)
+            user_info['driver_number'] = next_driver_number
+            
+            # Prepare for the next employee by incrementing the driver number
+            next_driver_number += 1
+            defaults['Next driver number'] = str(next_driver_number)
+            
+            # Write updated defaults back to file
+            FV.write_defaults(defaults)
+            print("Default settings successfully updated and saved to Defaults.dat.")
+            
+            # Append the new employee's information to Employees.dat
+            FV.append_employee_data(user_info, filename="Employees.dat")
+            print(f"Employee data for {user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']} has been successfully saved to Employees.dat.")
+
         elif choice == '2':
             program2()
         elif choice == '3':
