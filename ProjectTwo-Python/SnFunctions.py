@@ -1,42 +1,16 @@
+## DESCRIPTION: Functions for colleting/handling the new employee(driver). Collection of python functions delegated to its own module.
+## DATE CREATED: 04/02/2024
+## DATE LAST MODIFIED: 004/03/2024
+## GROUP NUMBER: Nine
+
+
+
+
 #imports required to be added to main program for ensuring these functions work
 import string
 from datetime import datetime, timedelta
 import re
 import Functions as FV
-
-# This might be a little messy until i get it working
-# dont worry about it - im not :')
-
-import os
-
-# Debug: Print the current working directory
-print(f"Current Working Directory: {os.getcwd()}")
-
-# Debug: Check if the file exists
-filename = "Defaults.dat"
-filepath = os.path.join(os.getcwd(), filename)
-if os.path.isfile(filepath):
-    print(f"Found file at {filepath}")
-else:
-    print(f"File not found at {filepath}")
-
-
-def read_defaults(filename="Defaults.dat"):
-    defaults = {}
-    try:
-        with open(filename, "r") as f:  # Use "r" for read mode
-            for line in f:
-                if ": " in line:  # Check for the delimiter
-                    key, value = line.split(": ", 1)  # Split each line at the delimiter
-                    defaults[key.strip()] = value.strip()
-    except FileNotFoundError:
-        print(f"File {filename} not found.")
-    except Exception as e:
-        print(f"An error occurred while reading {filename}: {e}")
-    return defaults
-
-
-
 
 # This function can be renamed/repurposed for any input collection scenario
 def collect_user_info():
@@ -207,6 +181,38 @@ def append_employee_data(employee_data, filename="Employees.dat"):
 
 
 
+'''
+#debugging code stored here
+
+import os
+
+# Debug: Print the current working directory
+print(f"Current Working Directory: {os.getcwd()}")
+
+# Debug: Check if the file exists
+filename = "Defaults.dat"
+filepath = os.path.join(os.getcwd(), filename)
+if os.path.isfile(filepath):
+    print(f"Found file at {filepath}")
+else:
+    print(f"File not found at {filepath}")
+
+
+def read_defaults(filename="Defaults.dat"):
+    defaults = {}
+    try:
+        with open(filename, "r") as f:  # Use "r" for read mode
+            for line in f:
+                if ": " in line:  # Check for the delimiter
+                    key, value = line.split(": ", 1)  # Split each line at the delimiter
+                    defaults[key.strip()] = value.strip()
+    except FileNotFoundError:
+        print(f"File {filename} not found.")
+    except Exception as e:
+        print(f"An error occurred while reading {filename}: {e}")
+    return defaults
+
+
 defaults = read_defaults()
 
 # debug print/test
@@ -240,3 +246,6 @@ print(user_info)
 for key, value in user_info.items():
     print(f"   | {key:>22s} -- {value:<33s}|")
 
+
+    
+'''

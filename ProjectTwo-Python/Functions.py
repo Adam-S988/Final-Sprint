@@ -1,6 +1,6 @@
 ## DESCRIPTION: Collection of useful Python functions for input/validation scenarios
 ## DATE CREATED: 03/30/2024
-## DATE LAST MODIFIED: 004/02/2024
+## DATE LAST MODIFIED: 004/03/2024
 ## GROUP NUMBER: Nine
 
 
@@ -10,14 +10,15 @@
 #   |-----------|   #
 
 
-#imports required to be added to main program for ensuring these functions work
+# Imports required to be added to main program for ensuring these functions work
+# Not necessarily used in this version, but are being left in for possible soon-to-be implemented functions
 import string
 from datetime import datetime, timedelta
 import re
 import calendar
 
 
-# reads default.dat
+# Reads default.dat
 def read_defaults(filename="Defaults.dat"):
     '''
     Reads key-value pairs from a defaults file and returns them as a dictionary.
@@ -37,7 +38,7 @@ def read_defaults(filename="Defaults.dat"):
     return defaults
 
 
-# reads default.dat
+# Reads default.dat
 def write_defaults(defaults, filename="Defaults.dat"):
     '''
     Writes the contents of a dictionary to the specified file as key-value pairs.
@@ -110,7 +111,7 @@ def validate_full_date():
 
 
 # Helper Function #1
-# function for confirming inputs before proceeding
+# Function for confirming inputs before proceeding
 def get_confirmation_for_input(input_value):
     """
     Asks the user to confirm the given input value, using the Yes/No validation from is_valid_input.
