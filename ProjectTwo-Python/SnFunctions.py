@@ -170,7 +170,7 @@ def collect_and_validate_drivers_license(user_info):
 
 
 # sends employee data to Employees.dat
-def append_employee_data(employee_data, filename="Employees.dat"):
+def append_employee_data(employee_data, filename="Employees_test.txt"):
     try:
         with open(filename, 'a') as file: # Using context manager for safe file handling
             # Converting dictionary values to a string and appending to file

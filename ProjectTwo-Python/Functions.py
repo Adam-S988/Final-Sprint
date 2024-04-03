@@ -19,7 +19,7 @@ import calendar
 
 
 # Reads default.dat
-def read_defaults(filename="Defaults.dat"):
+def read_defaults(filename="Defaults_test.dat"):
     '''
     Reads key-value pairs from a defaults file and returns them as a dictionary.
 
@@ -39,7 +39,7 @@ def read_defaults(filename="Defaults.dat"):
 
 
 # Reads default.dat
-def write_defaults(defaults, filename="Defaults.dat"):
+def write_defaults(defaults, filename="Defaults_test.dat"):
     '''
     Writes the contents of a dictionary to the specified file as key-value pairs.
 

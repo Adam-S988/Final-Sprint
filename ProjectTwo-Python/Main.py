@@ -57,9 +57,10 @@ def program1():
     print()
     print()
 
-         # Read default settings, specifically looking for the next available driver number
-    print(f"creating driver number: {next_driver_number}")        
+# Read default settings, specifically looking for the next available driver number
+    global defaults        
     next_driver_number = int(defaults['Next driver number'])
+    print(f"creating driver number: {next_driver_number}")
 
 # Collect user information through the employee functions module
     user_info = SN.collect_user_info()
@@ -78,8 +79,10 @@ def program1():
     print("Default settings successfully updated and saved to Defaults.dat.")
             
 # Append the new employee's information to Employees.dat
-    FV.append_employee_data(user_info, filename="Employees.dat")
+    FV.append_employee_data(user_info, filename="Employees_test.txt")
     print(f"Employee data for {user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']} has been successfully saved to Employees.dat.")
+
+
 
 # Enter Company Revenues.
 def program2():
