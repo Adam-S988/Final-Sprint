@@ -40,10 +40,12 @@ def main_menu():
         print(f"                       |----|----------------------|----|")
         print(f"                       | #9 |  -- EXIT PROGRAM --  | #9 |")
         print(f"                       |----|----------------------|----|")
-       
-        
-        
-        choice = input("Enter your choice (1-9): ")
+        print()              
+        print(f" ____________________________________")
+        print(f"|                                    |")
+        print(f"|---- Enter your choice #(1 - 9) ----|")
+        print(f"|____________________________________|")
+        choice = input("     #")
         
         if choice == '1':
             program1()
@@ -77,7 +79,7 @@ def program1():
     print()
     print()
 
-# Read default settings, specifically looking for the next available driver number
+  # Read default settings, specifically looking for the next available driver number
     global defaults
 
     while True:        
@@ -94,7 +96,7 @@ def program1():
                 
     # Update user_info with license information and the next driver number
         user_info.update(license_info)
-        user_info['driver_number'] = next_driver_number
+        user_info['driver_number'] = str(next_driver_number) # Store driver_number in user_info as a string
 
     # Show entered info to user, ask them to confirm before saving or start over.
         print(user_info)
@@ -108,6 +110,7 @@ def program1():
             "Please Enter Y for YES and N for No."
             )
         
+        # Saving Data Process
         if Save_confirmation.lower() =='y':
             
         # Prepare for the next employee by incrementing the driver number
@@ -121,7 +124,7 @@ def program1():
             SN.append_employee_data(user_info, filename="Employees_test.txt")
             print(f"--- SUCCESS!! ---")
             print(f" Default settings successfully updated and saved to Defaults.dat!")
-            print(f" Employee data for {user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']} has been successfully saved to Employees.txt.")
+            print(f" Employee data for Driver #{user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']}, has been successfully saved to Employees.txt.")
 
             # Ask if the user wants to input another employee
             print()
@@ -145,7 +148,7 @@ def program1():
                 "Please enter Y to start over, or N to return to the main menu."
             )
             if restart_or_menu.lower() != 'y':
-                print("\nReturning to main menu...")
+                print("Returning to main menu...")
                 break  # Exit the loop to return to the main menu
             
 
