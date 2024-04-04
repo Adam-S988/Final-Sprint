@@ -232,7 +232,7 @@ def is_valid_input(input_value, validation_types):
 
   # Check for non-empty input as a basic validation
     if not input_value:
-        return False, "Input cannot be blank."
+        return False, "Data Entry Error - Input cannot be blank."
     
   # Iterate over each specified validation rule in the validaion types list, and apply the corresponding validation(s)
     for validation_rule in validation_types:
@@ -248,10 +248,10 @@ def is_valid_input(input_value, validation_types):
                     
                   # Minimum value allowed to be entered
                     if rule == 'min_value' and numeric_value < limit_value:
-                        return False, f"Value must be at least {str_value}."                    
+                        return False, f"Data Entry Error - Value must be at least {str_value}."                    
                   # Max value allowed to be entered
                     elif rule == 'max_value' and numeric_value > limit_value:
-                        return False, f"Value cannot exceed {str_value}."
+                        return False, f"Data Entry Error - Value cannot exceed {str_value}."
                     
               # Maximum character validations    
                 elif rule in ['min_character_length', 'max_character_length']:
@@ -259,13 +259,13 @@ def is_valid_input(input_value, validation_types):
 
                   # Minimum characters acceptable for entry
                     if rule == 'min_character_length' and len(input_value) < limit_length:
-                        return False, f"Input must be at least {limit_length} characters."                    
+                        return False, f"Data Entry Error - Input must be at least {limit_length} characters."                    
                   # Maximum length accepted for this entry
                     elif rule == 'max_character_length' and len(input_value) > limit_length:
-                        return False, f"Input exceeds the maximum allowed length of {limit_length} characters."
+                        return False, f"Data Entry Error - Input exceeds the maximum allowed length of {limit_length} characters."
 
             except ValueError:
-                return False, "Invalid value for length or range validation."                   
+                return False, "Data Entry Error - Invalid value for length or range validation."                   
     
 
       # The 'empty' validation type is used when no validations types are needed other ensuring no blank input

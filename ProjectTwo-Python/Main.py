@@ -86,8 +86,8 @@ def program1():
         next_driver_number = int(defaults['Next driver number'])
         print(f"______________________________")
         print()
-        print(f"---NOW CREATING PROFILE FOR---")
-        print(f" --DRIVER NUMBER -- #{next_driver_number}--")
+        print(f"---NOW CREATING PROFILE---")
+        print(f" --DRIVER NUMBER # {next_driver_number}--")
         print(f"______________________________")
 
     # Collect user information through the employee functions module
@@ -129,7 +129,7 @@ def program1():
             # Ask if the user wants to input another employee
             print()
             add_another = FV.prompt_and_validate(
-                "Input another employee? (Y/N): ",
+                "Create another employee file? (Yes/no as Y/N): ",
                 "yes_no",
                 "Please enter Y for YES and N for No."
                 )
