@@ -91,7 +91,7 @@ def program1():
         print(f"______________________________")
 
     # Collect user information through the employee functions module
-        user_info = SN.collect_user_info()
+        user_info = SN.collect_user_info(str(next_driver_number))
         license_info = SN.collect_and_validate_drivers_license(user_info)
                 
     # Update user_info with license information and the next driver number
@@ -150,8 +150,6 @@ def program1():
             if restart_or_menu.lower() != 'y':
                 print("Returning to main menu...")
                 break  # Exit the loop to return to the main menu
-            
-
 
 # Enter Company Revenues.
 def program2():

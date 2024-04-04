@@ -219,9 +219,7 @@ def is_valid_input(input_value, validation_types):
   # which allow access throughout the entire program, and make modificaitons more convienent
     ALLOWED_NAME_CHARACTERS = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-.' ")
     VALID_PROVINCES = {"AB", "BC", "MB", "NB", "NL", "NS", "ON", "PE", "QC", "SK", "NT", "NU", "YT"}
-    EARLIEST_YEAR = 1900  # Earliest year that will return valid    
-    LATEST_YEAR = 2150    # Latest year that will return valid
-    
+    EARLIEST_YEAR = 1900  # Earliest year that will return valid   
 
   # Ensure validation_types is a list for consistent processing
     if isinstance(validation_types, str):
@@ -318,7 +316,8 @@ def is_valid_input(input_value, validation_types):
         elif validation_rule == 'year':
             try:
                 year = int(input_value)
-                if not EARLIEST_YEAR <= year <= LATEST_YEAR:
+                current_year = datetime.now().year
+                if not EARLIEST_YEAR <= year <= current_year:
                     return False, "Data Entry Error - Please enter a value between 1900 and 2150."
             except ValueError:
                 return False, "Data Entry Error - Please enter a numeric value."

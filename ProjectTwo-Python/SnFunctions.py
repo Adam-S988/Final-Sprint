@@ -13,7 +13,7 @@ import re
 import Functions as FV
 
 # This function can be renamed/repurposed for any input collection scenario
-def collect_user_info():
+def collect_user_info(driver_number):
     """
     This function asks the user a bunch of questions to get their information. Like their name, address, etc. 
     For each question, it makes sure the answer makes sense (like making sure a name doesn't have numbers in it).
@@ -34,6 +34,7 @@ def collect_user_info():
         A dictionary with all the user's information that's been checked and fixed up to look nice.
     """
 
+    user_info = {'driver_number': driver_number}
 
   # Collect and validate the first name
     first_name = FV.prompt_and_validate(
@@ -113,7 +114,7 @@ def collect_user_info():
     age = str(age)
 
   # Compile all collected and validated inputs into a dictionary for easy access, storage, and manipulation
-    return {
+    user_info.update({
         'first_name': first_name,
         'last_name': last_name,
         'address': address,
@@ -122,11 +123,13 @@ def collect_user_info():
         'postal_code': postal_code,
         'phone_number': phone_number,
         'date_of_birth': date_of_birth,
-        'age':age,
-        'insurance_company':insurance_company,
-        'insurance_policy_number':insurance_policy_number,
-        'owns_car':owns_car
-        }
+        'age': age,
+        'insurance_company': insurance_company,
+        'insurance_policy_number': insurance_policy_number,
+        'owns_car': owns_car
+        })
+
+    return user_info
 
 
 # Continuously prompts for and validates a driver's license and its expiry date.
