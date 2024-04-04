@@ -38,72 +38,72 @@ def collect_user_info(driver_number):
 
   # Collect and validate the first name
     first_name = FV.prompt_and_validate(
-        "Enter the employee's first name: ", 
+        "ENTER THE EMPLOYEE NAME: ", 
         ['name', 'max_character_length:20'],  
-        "Please enter a valid first name, no more than 20 characters"
+        "PLEASE ENTER A NAME NO LARGER THAN 20 CHARACTERS"
         ).title()
 
   # Collect and validate the last name similar to the first name
     last_name = FV.prompt_and_validate(
-        "Enter the employee's last name: ", 
+        "ENTER THE EMPLOYEE NAME LAST NAME: ", 
         ['name', 'max_character_length:20'],  
-        "Please enter a valid last name, no more than 20 characters"
+        "PLEASE ENTER A LAST NAME NO LARGER THAN 20 CHARACTERS"
         ).title()
 
   # Collect and validate to only ensure address input is not empty
     address = string.capwords(FV.prompt_and_validate(
-        "Enter the employee's home street address: ", 
+        "ENTER THE EMPLOYEES HOUSE NUMBER AND STREET ADDRESS: ", 
         ['empty', 'max_character_length:30'],  
-        "Please enter a valid street address."
+        "PLEASE ENTER A VALID ADDRESS"
         ))
     
   # Collect and validate the city name, ensuring it's contains valid naming characters, and isnt empty(empty validation isnt necessary to prevent input, it just helps provide more accurate error message if user enters blank inputs)
     city = string.capwords(FV.prompt_and_validate(
-        "Enter the employee's home city: ", 
+        "ENTER THE EMPLOYEE'S HOME CITY: ", 
         ['name',],  
-        "Please use only allowed characters for the city name."
+        "PLEASE ENTER A VALID CITY NAME"
         ))
 
   # Collect and validate the province abbreviations ensuring it's one of the defined valid provinces
     province = FV.prompt_and_validate(
-        "Enter the employee's home province (abbreviation): ", 
+        "ENTER THE EMPLOYEE'S HOME PROVINCE (ABBREVIATION): ", 
         ['province',],
-        "Please enter a valid province abbreviation(NL, QC, ON)"
+        "PLEASE ENTER A VALID ABBREVIATION(NL, QC, ON)"
         ).upper()
 
   # Collect and validate the postal code ensuring it follows a specific format and is not empty
     postal_code = FV.prompt_and_validate(
-        "Please enter the employee's home postal code (Formats: A1A 1A1 or A1A1A1): ", 
+        "PLEASE ENTER THE EMPLOYEE HOME POSTAL CODE (Formats: A1A 1A1 or A1A1A1): ", 
         ['postal_code',],
-        "Please enter a valid postal code in the format A1A 1A1 or A1A1A1."
+        "PLEASE ENTER A VALID POSTAL CODE. SUCH AS A1A 1A1 or A1A1A1."
         ).upper().replace(" ", "")
 
   # Collect and validate the phone number ensuring it's numeric and EXACTLY 10 digits long
     phone_number = FV.prompt_and_validate(
-        "Enter employee's phone number (10 digits): ", 
+        "ENTER THE EMPLOYEE PHONE NUMBER (10 digits): ", 
         ['phone_number',],
-        "Please enter a valid 10-digit numeric phone number .Formats like 1234567890, 123-456-7890, or (123) 456-7890 are accepted."
+        "PLEASE ENTER A VALID 10-DIGIT NUMERIC PHONE NUMBER. ACCEPTED FORMATS: 1234567890, 123-456-7890, or (123) 456-7890"
         ).replace(" ", "")
     
   # Collect and validate insurance company name  
     insurance_company = (FV.prompt_and_validate(
-        "Enter the employee's insurance policy company name: ", 
+        "ENTER NAME OF THE EMPLOYEE'S INSURANCE POLICY COMPANY: ", 
         ['name', 'min_character_length:2', 'max_character_length:20'],  
-        "Please enter a valid company name (2-20 characters)."
+        "PLEASE ENTER A VALID COMPANY NAME (2-20 characters)."
         ))
     
   # Collect and validate insurance number, expecting 3 letters and 3-6 digits  
     insurance_policy_number = FV.prompt_and_validate(
-        "Enter the employee's insurance policy number(ABC001, ABC123456): ", 
+        "ENTER THE EMPLOYEE's INSURANCE POLICY NUMBER(ABC001, ABC123456): ", 
         ['alphanumeric', 'min_character_length:6', 'max_character_length:9'],  
-        "Please enter a valid policy number (6-9 characters, alphanumeric)."
+        "PLEASE ENTER A VALID INSURANCE POLICY NUMBER (6-9 characters, alphanumeric)."
         ).upper()
     
   # Asks if user owns their own vehicle, or if they do not.
     owns_car = FV.prompt_and_validate(
-        "Will the employee be using their own vehicle?(Enter Y/N for Yes/No): ",
+        "WILL THE EMPLOYEE BE USING THEIR OWN VEHICLE?(Enter Y/N for Yes/No): ",
         ['yes_no',],
-        "Please enter Y for yes, or N for no."
+        "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
         ).upper()
 
   # CALCULATED FIELDS: Collects day, month, year, and assembles/validates as a full date of birth, then calculates the age based on today's date.

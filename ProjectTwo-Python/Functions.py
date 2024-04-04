@@ -34,7 +34,7 @@ def read_defaults(filename="Defaults_test.dat"):
                 key, value = [item.strip() for item in line.split(':', 1)]
                 defaults[key] = value
     except FileNotFoundError: # Error handling for file not found
-        print(f"File {filename} not found.")
+        print(f"ERROR!! FILE {filename} NOT FOUND")
     return defaults
 
 
@@ -52,7 +52,7 @@ def write_defaults(defaults, filename="Defaults_test.dat"):
             # Joining dictionary items into a formatted string and writing to file
             file.write('\n'.join(f"{key}: {value}" for key, value in defaults.items()))
     except Exception as e: # Error handling for file not found
-        print(f"Error writing to {filename}: {e}")
+        print(f"ERROR!!! ERROR WRITING {filename}: {e}")
 
 
 # Returns the last day of the specified month and year.
@@ -81,9 +81,9 @@ def collect_date_info():
         tuple: A tuple containing the month, day, and year entered by the user.
     """
     
-    month = prompt_and_validate("Enter the month (MM): ", 'month', "Please enter a valid month.")
-    day = prompt_and_validate("Enter the day (DD): ", 'day', "Please enter a valid day.")
-    year = prompt_and_validate("Enter the year (YYYY): ", 'year', "Please enter a valid year.")
+    month = prompt_and_validate("ENTER THE MONTH (MM): ", 'month', "PLEASE ENTER A VALID YEAR.")
+    day = prompt_and_validate("ENTER THE DAY (DD): ", 'day', "PLEASE ENTER A VALID DAY.")
+    year = prompt_and_validate("ENTER THE YEAR (YYYY): ", 'year', "PLEASE ENTER A VALID YEAR")
     return month, day, year
 
 
@@ -105,7 +105,7 @@ def validate_full_date():
             valid_date = True
         except ValueError:
           # If an exception is caught, it means the date is invalid
-            print("The entered date is not valid. Please try again.")
+            print("THE ENTERED DATE IS INVALID. PLEASE TRY AGAIN.")
   # Return the valid date in mm/dd/yyyy format
     return new_date, new_date.strftime("%m/%d/%Y")
 
@@ -125,7 +125,7 @@ def get_confirmation_for_input(input_value):
 
 
   # Prompt the user to confirm their input by entering 'Y' for Yes or 'N' for No
-    confirmation_prompt = f"Confirm input '{input_value}'? (Y/N): "
+    confirmation_prompt = f"CONFIRM INPUT '{input_value}'? (Y/N): "
 
   # Start a loop to repeatedly ask for confirmation if the input is invalid
     while True:
@@ -140,7 +140,7 @@ def get_confirmation_for_input(input_value):
           # Return True if the user confirmed with 'Y', indicating positive confirmation
             return confirmation == 'Y'
       # If the input is not a valid 'yes_no' response, inform the user and prompt again
-        print("Invalid confirmation. Please enter 'Y' for Yes or 'N' for No.")
+        print("INVALID ENTRY - PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO.")
 
 
 # Helper Function #2
@@ -171,7 +171,7 @@ def prompt_and_validate(prompt_message, validation_types, error_message, initial
             return initial_value
         else:
            # Inform the user that the initial value was not confirmed and prompt for input again
-             print(f"Initial value not confirmed. Please enter the value again.")
+             print(f"INTIIAL VALUE NOT CONFIRMED. PLEASE ENTER THE VALUE AGAIN.")
              print()
 
 
@@ -188,7 +188,7 @@ def prompt_and_validate(prompt_message, validation_types, error_message, initial
               # If the user confirms their input, return it
                 return user_input
           # Handle the case where the user does not confirm their input
-            print(f"Input not confirmed.")
+            print(f"INPUT DISCARDED. PLEASE TRY AGAIN.")
             print()
         else:
           # If input is invalid, display the generic error message and specific validation message
@@ -230,7 +230,7 @@ def is_valid_input(input_value, validation_types):
 
   # Check for non-empty input as a basic validation
     if not input_value:
-        return False, "Data Entry Error - Input cannot be blank."
+        return False, "DATA ENTRY ERROR - INPUT CANNOT BE BLANK"
     
   # Iterate over each specified validation rule in the validaion types list, and apply the corresponding validation(s)
     for validation_rule in validation_types:
@@ -246,10 +246,10 @@ def is_valid_input(input_value, validation_types):
                     
                   # Minimum value allowed to be entered
                     if rule == 'min_value' and numeric_value < limit_value:
-                        return False, f"Data Entry Error - Value must be at least {str_value}."                    
+                        return False, f"DATA ENTRY ERROR - VALUE MUST BE AT LEAST {str_value}."                    
                   # Max value allowed to be entered
                     elif rule == 'max_value' and numeric_value > limit_value:
-                        return False, f"Data Entry Error - Value cannot exceed {str_value}."
+                        return False, f"DATA ENTRY ERROR - VALUE CANNOT EXCEED {str_value}."
                     
               # Maximum character validations    
                 elif rule in ['min_character_length', 'max_character_length']:
@@ -257,60 +257,60 @@ def is_valid_input(input_value, validation_types):
 
                   # Minimum characters acceptable for entry
                     if rule == 'min_character_length' and len(input_value) < limit_length:
-                        return False, f"Data Entry Error - Input must be at least {limit_length} characters."                    
+                        return False, f"DATA ENTRY ERROR - INPUT MUST BE AT LEAST {limit_length} CHARACTERS"                    
                   # Maximum length accepted for this entry
                     elif rule == 'max_character_length' and len(input_value) > limit_length:
-                        return False, f"Data Entry Error - Input exceeds the maximum allowed length of {limit_length} characters."
+                        return False, f"DATA ENTRY ERROR - INPUT EXCEEDS THE MAXIMUM LIMIT OF {limit_length} CHARACTERS"
 
             except ValueError:
-                return False, "Data Entry Error - Invalid value for length or range validation."                   
+                return False, "DATA ENTRY ERROR - INVALID VALUE."                   
     
 
       # The 'empty' validation type is used when no validations types are needed other ensuring no blank input
         elif validation_rule == 'empty' and len(input_value) < 1:
-            return False, "Data Entry Error - Input Can not be blank"  
+            return False, "DATA ENTRY ERROR - INPUT CANNOT BE BLANK"  
         
       # Validate against character set for names
         elif validation_rule == 'name' and not set(input_value).issubset(ALLOWED_NAME_CHARACTERS):
-            return False, "Data Entry Error - Please use only allowed characters."
+            return False, "DATA ENTRY ERROR - PLEASE USED ONLY NORMAL NAMING CHARACTERS"
 
       # Validate phone numbers with more flexible patterns
         elif validation_rule == 'phone_number':
             phone_pattern = r"^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$"  # Pattern example: (123) 456-7890 or 123-456-7890 or 1234567890
             if not re.match(phone_pattern, input_value):
-                return False, "Data Entry Error - Please enter a valid 10-digit phone number."
+                return False, "DATA ENTRY ERROR - PLEASE ENTER A VALID 10 DIGIT PHONE NUMBER"
 
       # Validate province against a set of valid abbreviations    
         elif validation_rule == 'province' and input_value.upper() not in VALID_PROVINCES:
-            return False, "Data Entry Error - Please enter a valid province abbreviation."
+            return False, "DATA ENTRY ERROR - PLEASE ENTER A VALID PROVINCE ABBREVIATION"
 
       # Validate Canadian postal codes with an optional space
         elif validation_rule == 'postal_code':
             postal_code_pattern = r"^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$"  # Pattern example: A1A 1A1 or A1A1A1
             if not re.match(postal_code_pattern, input_value):
-                return False, "Data Entry Error - Invalid postal code format."
+                return False, "DATA ENTRY ERROR - INVALID POSTAL CODE FORMAT"
 
       # Validate yes/no inputs    
         elif validation_rule == 'yes_no' and input_value.lower() not in ['y', 'n']:
-            return False, "Data Entry Error - Answer Yes or No by typing Y or N."
+            return False, "INVALID ENTRY - PLEASE ENTER Y TO INDICATE YES. N TO INDICATE NO."
 
       # Validate day  
         elif validation_rule == 'day':
             try:
                 day = int(input_value)
                 if not 1 <= day <= 31:
-                    return False, "Data Entry Error - Please enter a value between 1 and 31."
+                    return False, "DATA ENTRY ERROR - PLEASE ENTER A VALUE BETWEEN 1 AND 31."
             except ValueError:
-                return False, "Data Entry Error - Please enter a numeric value."
+                return False, "DATA ENTRY ERROR - PLEASE ENTER A NUMERIC VALUE"
 
       # Validate month    
         elif validation_rule == 'month':
             try:
                 month = int(input_value)
                 if not 1 <= month <= 12:
-                    return False, "Data Entry Error - Please enter a value between 1 and 12."
+                    return False, "DATA ENTRY ERROR - PLEASE ENTER A VALUE BETWEEN 1 AND 12."
             except ValueError:
-                return False, "Data Entry Error - Please enter a numeric value."
+                return False, "DATA ENTRY ERROR - PLEASE ENTER A NUMERIC VALUE"
 
       # Validate year within a specific range    
         elif validation_rule == 'year':
@@ -318,44 +318,44 @@ def is_valid_input(input_value, validation_types):
                 year = int(input_value)
                 current_year = datetime.now().year
                 if not EARLIEST_YEAR <= year <= current_year:
-                    return False, "Data Entry Error - Please enter a value between 1900 and 2150."
+                    return False, f"DATA ENTRY ERROR - PLEASE ENTER A VALUE BETWEEN 1900 AND {str(current_year)} "
             except ValueError:
-                return False, "Data Entry Error - Please enter a numeric value."
+                return False, "DATA ENTRY ERROR - PLEASE ENTER A NUMERIC VALUE"
 
       # Validate positive integers using regex to allow numbers without leading zeros
         elif validation_rule == 'positive_integer':
             positive_int_pattern = r"^[1-9]\d*$"  # Matches positive integers without leading zeros
             if not re.match(positive_int_pattern, input_value):
-                return False, "Data Entry Error - Invalid input. Please enter a positive integer."
+                return False, "DATA ENTRY ERROR - PLEASE ENTER A POSITVE INTEGER VALUE"
             
       # Validate positive floats with regex, allowing for decimals but not leading zeros before the decimal point unless the number is less than 1
         elif validation_rule == 'positive_float':
             positive_float_pattern = r"^(?:0\.\d+|[1-9]\d*(\.\d+)?)$"  # Matches positive floats
             if not re.match(positive_float_pattern, input_value):
-                return False, "Data Entry Error - Value must be a positive float."
+                return False, "DATA ENTRY ERROR - PLEASE ENTER A POSITIVE FLOAT"
       
       # Validate alphanumeric inputs(ABC123) accepts dashes AND spaces (709 LOL AND  404-ERR)
         elif validation_rule == 'alphanumeric':
             if not input_value.replace('-', '').replace(' ', '').isalnum(): # Allowing dashes and spaces
-                return False, "Data Entry Error - Only alphanumeric characters, dashes, and spaces are allowed."
+                return False, "DATA ENTRY ERROR - ONLY ALPHANUMERIC CHARACTERS, INCLUDING DASHES AND SPACES, ALLOWED."
       
       # Validate NL Drivers licencse, in a simple generic fashion
         elif validation_rule == 'NL_driver_license':
             nl_license_pattern = r"^[A-Za-z]\d{7}$"  # Hypothetical pattern for Newfoundland and Labrador
             if not re.match(nl_license_pattern, input_value):
-                return False, "Data Entry Error - Invalid NL driver's license format. Expected format: A1234567."
+                return False, "DATA ENTRY ERROR - INVALID DRIVERS LICENSE, EXPECTED FORMAT: A1234567."
 
       # Expiry Date Validation
         elif validation_rule == 'expiry_date_MMYYYY':
             try:
                 exp_month, exp_year = map(int, input_value.split('/'))
                 if exp_month < 1 or exp_month > 12:
-                    return False, "Data Entry Error - Month must be between 01 and 12."
+                    return False, "Data Entry Error - MONTH MUST BE BETWEEN 01 AND 12."
                 expiry_date = datetime(exp_year, exp_month, last_day_of_month(exp_month, exp_year))
                 if expiry_date <= datetime.now():
-                    return False, "Data Entry Error - The expiry date must be in the future."
+                    return False, "DATA ENTRY ERROR - THE EXPIRY DATE MUST BE A FUTURE DATE."
             except ValueError:
-                return False, "Data Entry Error - Invalid date format. Expected MM/YYYY."
+                return False, "DATA ENTRY ERROR - INVALID DATE, EXPECTED FORMAT: MM/YYYY"
 
 
   # If all validations pass, return True with a generic success message    

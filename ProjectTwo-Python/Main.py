@@ -64,10 +64,10 @@ def main_menu():
         elif choice == '8':
             program8()
         elif choice == '9':
-            print("Exiting program.")
+            print("EXITING PROGRAM")
             break
         else:
-            print("Invalid choice. Please try again.")
+            print("INVALID CHOICE, PLEASE TRY AGAIN.")
 
 
 
@@ -103,11 +103,11 @@ def program1():
         for key, value in user_info.items():
             print(f"|-{key:>22s} -- {value:<33s}-|")
     
-        print(f"Please review your Employee data before submitting.")
+        print(f"PLEASE REVIEW THE EMPLOYEE DATA BEFORE SAVING.")
         Save_confirmation = FV.prompt_and_validate(
-            "Save Employee data? (Y/N):  ",
+            "SAVE EMPLOYEE DATA? (Y/N):  ",
             "yes_no",
-            "Please Enter Y for YES and N for No."
+            "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
             )
         
         # Saving Data Process
@@ -123,29 +123,29 @@ def program1():
         # Append the new employee's information to Employees.dat
             SN.append_employee_data(user_info, filename="Employees_test.txt")
             print(f"--- SUCCESS!! ---")
-            print(f" Default settings successfully updated and saved to Defaults.dat!")
-            print(f" Employee data for Driver #{user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']}, has been successfully saved to Employees.txt.")
+            print(f" DEFAULT SETTINGS SUCCESFULLY UPDATED AND SAVED TO  Defaults.dat !")
+            print(f" EMPLOYEE DATA FOR EMPLOYEE #{user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']}, HAS BEEN SUCCESFULLY SAVED TO  Employees.txt !")
 
             # Ask if the user wants to input another employee
             print()
             add_another = FV.prompt_and_validate(
-                "Create another employee file? (Yes/no as Y/N): ",
+                "WOULD YOU LIKE TO CREATE ANOTHER EMPLOYEE FILE? (Yes/no as Y/N): ",
                 "yes_no",
-                "Please enter Y for YES and N for No."
+                "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
                 )
             
             if add_another.lower() != 'y':
                 print()
-                print("Returning to main menu...")
+                print("RETURNING TO MAIN MENU...")
                 print()
                 break  # Exiting the loop to return to the main menu
         else:
             # If the user decides not to save, they're prompted to confirm starting over or returning to the main menu
             print()
             restart_or_menu = FV.prompt_and_validate(
-                "Start over with a new employee entry? (Y/N): ",
+                "START OVER WITH A NEW EMPLOYEE FILE? (Y/N): ",
                 "yes_no",
-                "Please enter Y to start over, or N to return to the main menu."
+                "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
             )
             if restart_or_menu.lower() != 'y':
                 print("Returning to main menu...")
