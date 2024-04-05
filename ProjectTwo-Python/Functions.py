@@ -38,7 +38,7 @@ def read_defaults(filename="Defaults_test.dat"):
     return defaults
 
 
-# Reads default.dat
+# Writes default.dat
 def write_defaults(defaults, filename="Defaults_test.dat"):
     '''
     Writes the contents of a dictionary to the specified file as key-value pairs.
@@ -53,6 +53,166 @@ def write_defaults(defaults, filename="Defaults_test.dat"):
             file.write('\n'.join(f"{key}: {value}" for key, value in defaults.items()))
     except Exception as e: # Error handling for file not found
         print(f"ERROR!!! ERROR WRITING {filename}: {e}")
+
+
+# Reads Employees.txt
+def read_employees(filename="Employees_test.txt"):
+    '''
+    Reads employee data from a file and returns a list of dictionaries, each representing an employee.
+
+    The employee data includes separate fields for street address, city, province, and postal code.
+
+    Returns:
+    - list: A list of dictionaries, each containing data for one employee.
+    '''
+    employees = []
+    try:
+        with open(filename, 'r') as file:
+            for line in file:
+                parts = line.strip().split(',')
+                # Map the parts of each line to a dictionary using the correct keys(Im assuming this is the tricky part of the process?-SN)
+                employee = {
+                    'Driver Number': parts[0],
+                    'First Name': parts[1],
+                    'Last Name': parts[2],
+                    'Street Address': parts[3],
+                    'City': parts[4],
+                    'Province': parts[5],
+                    'Postal Code': parts[6],
+                    'Phone Number': parts[7],
+                    'Date of Birth': parts[8],
+                    'Age': parts[9],
+                    'Insurance Company': parts[10],
+                    'Insurance Policy': parts[11],
+                    'Owns Car': parts[12],
+                    'License Number': parts[13],
+                    'License Expiry': parts[14],
+                    'Balance': parts[15]
+                }
+                employees.append(employee)
+    except FileNotFoundError:
+        print(f"ERROR!! FILE {filename} NOT FOUND")
+    
+    return employees
+
+# Writes to Employees.txt
+def write_employees(employees, filename="Employees_test.txt"):
+    '''
+    Writes a list of employee dictionaries to a file.
+
+    Parameters:
+    - employees (list): A list of dictionaries, each representing an employee.
+    - filename (str): The name of the file to write the employees to.
+    '''
+    try:
+        with open(filename, 'w') as file:  # Using 'w' to overwrite the file with updated information
+            for employee in employees:
+                # Convert each employee dictionary to a comma-separated string
+                line = ','.join([
+                    employee['driver_number'],
+                    employee['first_name'],
+                    employee['last_name'],
+                    employee['street_address'],
+                    employee['city'],
+                    employee['province'],
+                    employee['postal_code'],
+                    employee['phone'],
+                    employee['Date of Birth'],  # Assuming you've decided to use 'Date of Birth' as the key
+                    employee['age'],
+                    employee['insurance_company'],
+                    employee['insurance_policy'],
+                    employee['owns_car'],
+                    employee['license_number'],
+                    employee['license_expiry'],
+                    str(employee['balance'])  # Convert balance to string in case it's stored as a numeric type
+                ])
+                file.write(line + '\n')  # Write the line to the file, followed by a newline character
+    except Exception as e:
+        print(f"Failed to write to {filename}: {e}")
+
+# Check and charge monthly fees if needed //  "quite tricky" =/= true :) - SN
+def charge_stand_fees():
+    # Read defaults and employees
+    defaults = read_defaults("Defaults.txt")
+    employees = read_employees("Employees_test.txt")
+
+    monthly_stand_fee = float(defaults['Monthly stand fee'])
+    hst_rate = float(defaults['HST rate'].rstrip('%')) / 100
+    next_transaction_number = int(defaults['Next transaction number'])
+
+    transactions = []  # To keep track of new transactions for the revenue
+
+    for employee in employees:
+        if employee['owns_car'] == 'Y':
+            # Calculate the monthly fee with HST
+            hst_amount = monthly_stand_fee * hst_rate
+            total_amount = monthly_stand_fee + hst_amount
+
+            # Update the employee's balance
+            employee['balance'] = str(float(employee['balance']) + total_amount)
+
+            # Prepare the transaction record
+            transaction = {
+                'Transaction ID': next_transaction_number,
+                'Date': datetime.today().strftime('%m/%d/%Y'),
+                'Description': "Monthly Stand Fees",
+                'Driver Number': employee['driver_number'],
+                'Amount': monthly_stand_fee,
+                'HST': hst_amount,
+                'Total': total_amount
+            }
+            transactions.append(transaction)
+
+            next_transaction_number += 1
+
+    # Append new transactions to Revenues.txt
+    append_to_revenues(transactions, "Revenues.txt")
+
+    # Update the next transaction number in defaults
+    defaults['Next transaction number'] = str(next_transaction_number)
+    write_defaults(defaults, "Defaults.txt")
+
+    # Write updated employees back to Employees.txt
+    write_employees(employees, "Employees_test.txt")
+
+
+# Writes required values to the revenue file
+def append_to_revenues(transactions, filename="Revenues_test.txt"):
+    '''
+    Appends a list of transaction dictionaries to the Revenues.txt file.
+
+    Parameters:
+    - transactions (list): A list of dictionaries, each representing a revenue transaction.
+    - filename (str): The name of the file to append the transactions to.
+    '''
+    try:
+        with open(filename, 'a') as file:
+            for transaction in transactions:
+                # Format the transaction into a string line, using format_currency for amounts
+                line = ','.join([
+                    str(transaction['Transaction ID']),
+                    transaction['Date'],
+                    transaction['Description'],
+                    str(transaction['Driver Number']),
+                    format_currency(transaction['Amount']),
+                    format_currency(transaction['HST']),
+                    format_currency(transaction['Total'])
+                ])
+                file.write(line + '\n')
+    except Exception as e:
+        print(f"Failed to append to {filename}: {e}")
+
+
+
+
+
+
+# formats basic currency
+def format_currency(amount):
+    """
+    Formats a number into a string with two decimal places.
+    """
+    return "{:.2f}".format(amount)
 
 
 # Returns the last day of the specified month and year.

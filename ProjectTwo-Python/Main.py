@@ -2,11 +2,11 @@
 ## DATE CREATED: 03/29/2024
 ## GROUP: Nine
 
+from datetime import datetime
 import Functions as FV
 import SnFunctions as SN
 
 defaults = FV.read_defaults()
-
 
 ### MAIN MENU ###
 def main_menu():
@@ -213,6 +213,20 @@ def program8():
 
 #RUNS MAIN MENU IF THIS FILE IS INITIALIZED
 if __name__ == "__main__":
+    today = datetime.today()
+    fees_charged = False  # Flag to indicate whether fees were charged
+
+    # Check if today is the first day of the month
+    if today.day == 1:
+        print("Charging monthly stand fees...")
+        FV.charge_stand_fees()  
+        fees_charged = True
+        message = "IMPORTANT NOTICE! MONTHLY STANDARD FEES HAVE BEEN APPLIED!! "
+    else:
+        message = "NO STANDARD FEES APPLIED TODAY. "
+
+        input(f"{message}Press Enter to continue to the main menu!")
+
     main_menu()
 
 

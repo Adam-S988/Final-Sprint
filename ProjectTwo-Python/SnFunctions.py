@@ -7,7 +7,7 @@ MINIMUM_HIRING_AGE = 18
 
 
 
-#imports required to be added to main program for ensuring these functions work
+# imports required to be added to main program for ensuring these functions work
 # Not necessarily used in this version, but are being left in for possible soon-to-be implemented functions
 import string
 from datetime import datetime, timedelta
