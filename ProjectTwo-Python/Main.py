@@ -8,7 +8,7 @@ import SnFunctions as SN
 defaults = FV.read_defaults()
 
 
-### EMPTY MAIN MENU ###
+### MAIN MENU ###
 def main_menu():
     while True:
         
@@ -71,7 +71,7 @@ def main_menu():
 
 
 
-### EMPTY PROGRAMS ###
+### COMPANY PROGRAMS ###
 
 # Enter a New Employee (driver)
 def program1():
