@@ -75,6 +75,9 @@ def main_menu():
 
 # Enter a New Employee (driver)
 def program1():
+    '''
+    Enter a New Employee (driver), updating defaults.dat and saving to Employees.txt
+    '''
     print()
     print()
     print()
@@ -97,6 +100,11 @@ def program1():
     # Update user_info with license information and the next driver number
         user_info.update(license_info)
         user_info['driver_number'] = str(next_driver_number) # Store driver_number in user_info as a string
+
+    # Add starting balance of $0 to the file
+        user_info['balance'] = 0
+        user_info['balance'] = str(user_info['balance']) # Convert to a string for saving
+
 
     # Show entered info to user, ask them to confirm before saving or start over.
         print(user_info)
@@ -125,20 +133,28 @@ def program1():
             print(f"--- SUCCESS!! ---")
             print(f" DEFAULT SETTINGS SUCCESFULLY UPDATED AND SAVED TO  Defaults.dat !")
             print(f" EMPLOYEE DATA FOR EMPLOYEE #{user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']}, HAS BEEN SUCCESFULLY SAVED TO  Employees.txt !")
-
-            # Ask if the user wants to input another employee
             print()
+            # Ask if the user wants to input another employee
+            if user_info.get('owns_car', 'Y').lower() == 'n':  # Check if user does not own a vehicle
+                continue_to_program4 = FV.prompt_and_validate(
+                    "CONTINUE TO TRACK CAR RENTALS? (Y/N): ",
+                    "yes_no",
+                    "PLEASE ENTER Y TO CONTINUE TO TRACK CAR RENTALS. ENTER N TO SKIP."
+                    )
+                if continue_to_program4.lower() == 'y':
+                    program4()                    
+            
             add_another = FV.prompt_and_validate(
                 "WOULD YOU LIKE TO CREATE ANOTHER EMPLOYEE FILE? (Yes/no as Y/N): ",
                 "yes_no",
                 "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
                 )
-            
+                    
             if add_another.lower() != 'y':
-                print()
-                print("RETURNING TO MAIN MENU...")
-                print()
-                break  # Exiting the loop to return to the main menu
+                        print()
+                        print("RETURNING TO MAIN MENU...")
+                        print()
+                        break  # Exiting the loop to return to the main menu
         else:
             # If the user decides not to save, they're prompted to confirm starting over or returning to the main menu
             print()

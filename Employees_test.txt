@@ -1,3 +1,6 @@
 Steven, Norris, 1 alexander, Clarenville, NL, A5A1A3, (709)466-3754, 02/02/1994, 30, Bidinsurance, BID333, Y, SN7654321, 02/2026, 1924
 Stebe, Doofus, 12 home place, St Johns, NL, A3A1A2, 4667773838, 02/02/1994, 30, Insureyou, INSURE12, Y, SD7654321, 02/2025, 1925
 1926, Dude, Guy, 101 House Street, Capital Town, QC, L0L0L8, (101)404-6969, 01/30/1992, 32, NoInsurance, NO1011, N, DG1234567, 04/2028
+1927, Steven, Norris, 12 Burger Street, Bunyum's Cove, BC, A2A1A2, 7094378454, 01/05/2006, 18, SCAMTOWN, SCTP00P, N, SN2004339, 02/4043
+1928, John, Doe, 123 Burger Lane, Burgertown, NL, A1A2A2, 406-304-4444, 05/02/2024, -1, okinsurance, BEEP404, N, JD1234567, 02/2032
+1929, Big, Mann, 12 Forest Drive, St John's, NL, A5A4A1, 7096664532, 02/02/2002, 22, zen insurance, ZEN420, N, BM2002111, 04/2027

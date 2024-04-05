@@ -81,7 +81,7 @@ def collect_date_info():
         tuple: A tuple containing the month, day, and year entered by the user.
     """
     
-    month = prompt_and_validate("ENTER THE MONTH (MM): ", 'month', "PLEASE ENTER A VALID YEAR.")
+    month = prompt_and_validate("ENTER THE MONTH (MM): ", 'month', "PLEASE ENTER A VALID MONTH.")
     day = prompt_and_validate("ENTER THE DAY (DD): ", 'day', "PLEASE ENTER A VALID DAY.")
     year = prompt_and_validate("ENTER THE YEAR (YYYY): ", 'year', "PLEASE ENTER A VALID YEAR")
     return month, day, year
@@ -272,7 +272,7 @@ def is_valid_input(input_value, validation_types):
         
       # Validate against character set for names
         elif validation_rule == 'name' and not set(input_value).issubset(ALLOWED_NAME_CHARACTERS):
-            return False, "DATA ENTRY ERROR - PLEASE USED ONLY NORMAL NAMING CHARACTERS"
+            return False, "DATA ENTRY ERROR - PLEASE USE ONLY NORMAL NAMING CHARACTERS"
 
       # Validate phone numbers with more flexible patterns
         elif validation_rule == 'phone_number':

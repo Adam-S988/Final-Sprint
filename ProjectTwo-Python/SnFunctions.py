@@ -45,7 +45,7 @@ def collect_user_info(driver_number):
 
   # Collect and validate the last name similar to the first name
     last_name = FV.prompt_and_validate(
-        "ENTER THE EMPLOYEE NAME LAST NAME: ", 
+        "ENTER THE EMPLOYEE LAST NAME: ", 
         ['name', 'max_character_length:20'],  
         "PLEASE ENTER A LAST NAME NO LARGER THAN 20 CHARACTERS"
         ).title()
@@ -107,7 +107,7 @@ def collect_user_info(driver_number):
         ).upper()
 
   # CALCULATED FIELDS: Collects day, month, year, and assembles/validates as a full date of birth, then calculates the age based on today's date.
-    print("Please enter the employee date of birth.")
+    print("PLEASE ENTER THE EMPLOYEE DATE OF BIRTH")
     date_of_birth_datetime, date_of_birth = FV.validate_full_date()
     today = datetime.today()
     age = today.year - date_of_birth_datetime.year - ((today.month, today.day) < (date_of_birth_datetime.month, date_of_birth_datetime.day))
