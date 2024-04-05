@@ -164,7 +164,7 @@ def program1():
                 "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
             )
             if restart_or_menu.lower() != 'y':
-                print("Returning to main menu...")
+                print("RETURNING TO MAIN MENU...")
                 break  # Exit the loop to return to the main menu
 
 # Enter Company Revenues.

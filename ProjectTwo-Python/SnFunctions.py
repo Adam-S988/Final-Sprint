@@ -3,10 +3,12 @@
 ## DATE LAST MODIFIED: 04/05/2024
 ## GROUP NUMBER: Nine
 
+MINIMUM_HIRING_AGE = 18
 
 
 
 #imports required to be added to main program for ensuring these functions work
+# Not necessarily used in this version, but are being left in for possible soon-to-be implemented functions
 import string
 from datetime import datetime, timedelta
 import re
@@ -105,13 +107,21 @@ def collect_user_info(driver_number):
         ['yes_no',],
         "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
         ).upper()
+    
 
   # CALCULATED FIELDS: Collects day, month, year, and assembles/validates as a full date of birth, then calculates the age based on today's date.
-    print("PLEASE ENTER THE EMPLOYEE DATE OF BIRTH")
-    date_of_birth_datetime, date_of_birth = FV.validate_full_date()
-    today = datetime.today()
-    age = today.year - date_of_birth_datetime.year - ((today.month, today.day) < (date_of_birth_datetime.month, date_of_birth_datetime.day))
-    age = str(age)
+    while True:        
+        print("PLEASE ENTER THE EMPLOYEE DATE OF BIRTH")
+        date_of_birth_datetime, date_of_birth = FV.validate_full_date()
+        today = datetime.today()
+        age = today.year - date_of_birth_datetime.year - ((today.month, today.day) < (date_of_birth_datetime.month, date_of_birth_datetime.day))
+
+      # Check if age is less than 18. a validation against negative ages or ages that dont make sense in this context
+        if age < MINIMUM_HIRING_AGE:
+            print("DATA ENTRY ERROR - DRIVER MUST BE AT LEAST 18 YEARS OF AGE.")
+        else:
+            age = str(age)
+            break
 
   # Compile all collected and validated inputs into a dictionary for easy access, storage, and manipulation
     user_info.update({
