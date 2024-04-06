@@ -223,7 +223,7 @@ if __name__ == "__main__":
         message = "IMPORTANT NOTICE! MONTHLY STANDARD FEES HAVE BEEN APPLIED!! "
     else:
         message = "NO STANDARD FEES APPLIED TODAY. "
-
+    print()
     input(f"{message}PRESS ENTER TO CONTINUE TO MAIN MENU")
 
     main_menu()

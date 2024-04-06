@@ -87,6 +87,9 @@ def collect_user_info(driver_number):
         "PLEASE ENTER A VALID 10-DIGIT NUMERIC PHONE NUMBER. ACCEPTED FORMATS: 1234567890, 123-456-7890, or (123) 456-7890"
         ).replace(" ", "")
     
+  # Format the phone number to a uniform output format, for storage consistency 
+    phone_number = FV.format_phone_with_dashes(phone_number)
+    
   # Collect and validate insurance company name  
     insurance_company = (FV.prompt_and_validate(
         "ENTER NAME OF THE EMPLOYEE'S INSURANCE POLICY COMPANY: ", 

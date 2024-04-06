@@ -95,6 +95,7 @@ def read_employees(filename="Employees_test.txt"):
     
     return employees
 
+
 # Writes to Employees.txt
 def write_employees(employees, filename="Employees_test.txt"):
     '''
@@ -129,10 +130,11 @@ def write_employees(employees, filename="Employees_test.txt"):
     except Exception as e:
         print(f"Failed to write to {filename}: {e}")
 
+
 # Check and charge monthly fees if needed //  "quite tricky" =/= true :) - SN
 def charge_stand_fees():
     
-    print("Charging stand fees...")
+    print("CHARGING STANDARD FEES...")
 
     # Read defaults and employees
     defaults = read_defaults("Defaults_test.dat")
@@ -142,18 +144,21 @@ def charge_stand_fees():
     hst_rate = float(defaults['HST rate'].rstrip('%')) / 100
     next_transaction_number = int(defaults['Next transaction number'])
 
-    transactions = []  # To keep track of new transactions for the revenue
+    transactions = []  # To keep track of new transactions for the revenue stuff
 
     for employee in employees:
         if employee['using_personal_vehicle'] == 'Y':
-            print(f"Charging fees for employee: {employee['driver_number']}")
+            print()
+            print(f"FEES CHARGED FOR DRIVER #{employee['driver_number']}  ")
+            print(f"EMPLOYEE -{employee['first_name']}{employee['last_name']}")
+            print(f"PREVIOUS BALANCE -- ${employee['balance']}")            
             # Calculate the monthly fee with HST
             hst_amount = monthly_stand_fee * hst_rate
             total_amount = monthly_stand_fee + hst_amount
 
             # Update the employee's balance
-            employee['balance'] = str(float(employee['balance']) + total_amount)
-
+            employee['balance'] = str(float(employee['balance']) + total_amount)            
+            print(F"UPDATED BALANCE -- ${employee['balance']}")
             # Prepare the transaction record
             transaction = {
                 'transaction_id': next_transaction_number,
@@ -206,8 +211,29 @@ def append_to_revenues(transactions, filename="Revenues_test.txt"):
         print(f"Failed to append to {filename}: {e}")
 
 
+# formats phone number into a uniform format
+def format_phone_with_dashes(phone_number):
+    """
+    Formats a validated phone number into a standardized format (111-111-1111).
 
+    Parameters:
+    - phone_number (str): The phone number to format. Expected to be a valid phone number
+                          that may include parentheses, spaces, and dashes.
 
+    Returns:
+    - str: The phone number formatted in the 111-111-1111 format.
+    """
+    # Remove all non-digit characters from the phone number via re (Regex)
+    digits_only = re.sub(r'\D', '', phone_number)
+
+    # Check if we have exactly 10 digits after cleaning
+    if len(digits_only) != 10:
+        raise ValueError("PHONE NUMBER MUST CONTAIN 10 digits.")
+
+    # Reformat to 111-111-1111
+    formatted_number = f"{digits_only[:3]}-{digits_only[3:6]}-{digits_only[6:]}"
+
+    return formatted_number
 
 
 # formats basic currency
@@ -523,3 +549,4 @@ def is_valid_input(input_value, validation_types):
 
   # If all validations pass, return True with a generic success message    
     return True, "Valid input."
+

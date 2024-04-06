@@ -1,4 +1,7 @@
 1930, Finance, Bro, 12 Bank Dr, St John's, NL, A5A1A3, 7094263443, 06/01/1990, 33, geico, GUY33333,N, FB4320011, 02/2035, 0
 1931, Jane, Doe, 12 Sandwhich Lane, St John's, NL, A8A3S2, (709)427-9413, 01/01/1984, 40, RockCoverage Co., ROC345,N, JD3042111, 03/2025, 0
-1932, Joe, Mama, 12 Rock Garden, St. John's, NL, A5A1A3, 1234567890, 01/02/1986, 38, geico, GUY532,Y, JM1234567, 02/2043,402.5
-1933, Steven, Norris, 12 Lake Drive, St John's, NL, A5A1A3, 7094273663, 02/01/1993, 31, geico, GUY430233,Y, SN1234567, 02/2026,402.5
+1932, Joe, Mama, 12 Rock Garden, St. John's, NL, A5A1A3, 1234567890, 01/02/1986, 38, geico, GUY532,Y, JM1234567, 02/2043,2415.0
+1933, Steven, Norris, 12 Lake Drive, St John's, NL, A5A1A3, 7094273663, 02/01/1993, 31, geico, GUY430233,Y, SN1234567, 02/2026,2415.0
+1934, Kevin, Pickle, 1-1 Pickle, Yolk, NL, A5A3A1, 709-560-5404, 02/07/1974, 50, noinsurance, NO4041,Y, KP4043333, 02/2027,402.5
+1935, Craig, Sandwhich, 12 Egg Salad Drive, St John's, ON, A6A1A3, 407-3339044, 12/25/1957, 66, NobodysCovered, NO4324422,Y, CS5533441, 07/2027,402.5
+1936, Hot, Dog, 14 Ketchup Place, Mustard Town, QC, B0N3R1, 405-320-4033, 08/15/1976, 47, RelishIt, RE3333, Y, HD8083333, 04/2026, 0
