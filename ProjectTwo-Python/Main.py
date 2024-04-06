@@ -135,7 +135,7 @@ def program1():
             print(f" EMPLOYEE DATA FOR EMPLOYEE #{user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']}, HAS BEEN SUCCESFULLY SAVED TO  Employees.txt !")
             print()
             # Ask if the user wants to input another employee
-            if user_info.get('owns_car', 'Y').lower() == 'n':  # Check if user does not own a vehicle
+            if user_info.get('using_personal_vehicle', 'Y').lower() == 'n':  # Check if user does not own a vehicle
                 continue_to_program4 = FV.prompt_and_validate(
                     "CONTINUE TO TRACK CAR RENTALS? (Y/N): ",
                     "yes_no",
@@ -217,15 +217,14 @@ if __name__ == "__main__":
     fees_charged = False  # Flag to indicate whether fees were charged
 
     # Check if today is the first day of the month
-    if today.day == 1:
-        print("Charging monthly stand fees...")
+    if today.day == 6:        
         FV.charge_stand_fees()  
         fees_charged = True
         message = "IMPORTANT NOTICE! MONTHLY STANDARD FEES HAVE BEEN APPLIED!! "
     else:
         message = "NO STANDARD FEES APPLIED TODAY. "
 
-        input(f"{message}Press Enter to continue to the main menu!")
+    input(f"{message}PRESS ENTER TO CONTINUE TO MAIN MENU")
 
     main_menu()
 

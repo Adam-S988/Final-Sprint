@@ -136,8 +136,8 @@ def collect_user_info(driver_number):
         'age': age,
         'insurance_company': insurance_company,
         'insurance_policy_number': insurance_policy_number,
-        'owns_car': owns_car
-        })
+        'using_personal_vehicle': owns_car
+})
 
     return user_info
 
@@ -159,30 +159,30 @@ def collect_and_validate_drivers_license(user_info):
     initials = user_info['first_name'][0].upper() + user_info['last_name'][0].upper()
 
     while True:
-        drivers_license = input(f"Enter the Emnployee's 7-digit driver's license number (starting with initials {initials}): ").upper().strip()
+        drivers_license = input(f"ENTER THE EMPLOYEE'S 7-DIGIT LICENSE NUMBER (starting with initials {initials}): ").upper().strip()
         # Newfoundland and Labrador driver's license pattern: 2 letters followed by 7 digits ( I probably shouldnt make them type their own intials... but it is what it is now.)
         nl_license_pattern = f"^{initials}\\d{{7}}$"
 
         # Validate driver's license format (initials followed by 7 digits)        
         if re.match(nl_license_pattern, drivers_license):
             break  # Exit the loop if the driver's license is valid
-        print(f"Invalid driver's license format(Expected format: {initials}1234567):   ")
+        print(f"DATA ENTRY ERROR- INVALID NL LICENSE NUMBER(Expected format: {initials}1234567):   ")
 
     # Separate loop for expiry date validation
     while True:
-        expiry_date_input = input("Enter the expiry date (MM/YYYY): ")
+        expiry_date_input = input("ENTER THE EXPIRY DATE (MM/YYYY): ")
 
         try:
             exp_month, exp_year = map(int, expiry_date_input.split('/'))
             expiry_date = datetime(exp_year, exp_month, FV.last_day_of_month(exp_year, exp_month))
             if expiry_date <= datetime.now():
-                raise ValueError("The expiry date must be in the future.(IE 2025 and beyond)") # in a real life scenario "2025" would be a variable that check the next year
+                raise ValueError("DATA ENTRY ERROR- THE DATE MUST BE IN THE FUTURE (IE 2025 and beyond)") # in a real life scenario "2025" would be a variable that checks the next year -SN
             break  # Exit the loop if the expiry date is valid
         except (ValueError, IndexError):
-            print("Invalid expiry date format or date is not in the future. Please enter in MM/YYYY format.")
+            print("DATA ENTRY ERROR - INVALID EXPIRY DATE. PlEASE ENTER FUTURE DATE IN MM/YYYY format.")
 
     # If both inputs are valid, compile and return the results
-    return {'drivers_license': drivers_license, 'expiry_date': expiry_date.strftime("%m/%Y")}
+    return {'license_number': drivers_license, 'license_expiry': expiry_date.strftime("%m/%Y")}
 
 
 # Sends employee data to Employees.dat

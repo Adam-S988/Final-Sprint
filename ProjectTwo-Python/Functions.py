@@ -70,25 +70,25 @@ def read_employees(filename="Employees_test.txt"):
         with open(filename, 'r') as file:
             for line in file:
                 parts = line.strip().split(',')
-                # Map the parts of each line to a dictionary using the correct keys(Im assuming this is the tricky part of the process?-SN)
+                # Map the parts of each line to a dictionary using the correct keys
                 employee = {
-                    'Driver Number': parts[0],
-                    'First Name': parts[1],
-                    'Last Name': parts[2],
-                    'Street Address': parts[3],
-                    'City': parts[4],
-                    'Province': parts[5],
-                    'Postal Code': parts[6],
-                    'Phone Number': parts[7],
-                    'Date of Birth': parts[8],
-                    'Age': parts[9],
-                    'Insurance Company': parts[10],
-                    'Insurance Policy': parts[11],
-                    'Owns Car': parts[12],
-                    'License Number': parts[13],
-                    'License Expiry': parts[14],
-                    'Balance': parts[15]
-                }
+                    'driver_number': parts[0],
+                    'first_name': parts[1],
+                    'last_name': parts[2],
+                    'street_address': parts[3],
+                    'city': parts[4],
+                    'province': parts[5],
+                    'postal_code': parts[6],
+                    'phone_number': parts[7],
+                    'date_of_birth': parts[8],
+                    'age': parts[9],
+                    'insurance_company': parts[10],
+                    'insurance_policy': parts[11],
+                    'using_personal_vehicle': parts[12].upper().strip(),
+                    'license_number': parts[13],
+                    'license_expiry': parts[14],
+                    'balance': parts[15]
+}
                 employees.append(employee)
     except FileNotFoundError:
         print(f"ERROR!! FILE {filename} NOT FOUND")
@@ -106,8 +106,7 @@ def write_employees(employees, filename="Employees_test.txt"):
     '''
     try:
         with open(filename, 'w') as file:  # Using 'w' to overwrite the file with updated information
-            for employee in employees:
-                # Convert each employee dictionary to a comma-separated string
+            for employee in employees:                
                 line = ','.join([
                     employee['driver_number'],
                     employee['first_name'],
@@ -116,15 +115,15 @@ def write_employees(employees, filename="Employees_test.txt"):
                     employee['city'],
                     employee['province'],
                     employee['postal_code'],
-                    employee['phone'],
-                    employee['Date of Birth'],  # Assuming you've decided to use 'Date of Birth' as the key
+                    employee['phone_number'],
+                    employee['date_of_birth'],
                     employee['age'],
                     employee['insurance_company'],
                     employee['insurance_policy'],
-                    employee['owns_car'],
+                    employee['using_personal_vehicle'],
                     employee['license_number'],
                     employee['license_expiry'],
-                    str(employee['balance'])  # Convert balance to string in case it's stored as a numeric type
+                    str(employee['balance']) 
                 ])
                 file.write(line + '\n')  # Write the line to the file, followed by a newline character
     except Exception as e:
@@ -132,8 +131,11 @@ def write_employees(employees, filename="Employees_test.txt"):
 
 # Check and charge monthly fees if needed //  "quite tricky" =/= true :) - SN
 def charge_stand_fees():
+    
+    print("Charging stand fees...")
+
     # Read defaults and employees
-    defaults = read_defaults("Defaults.txt")
+    defaults = read_defaults("Defaults_test.dat")
     employees = read_employees("Employees_test.txt")
 
     monthly_stand_fee = float(defaults['Monthly stand fee'])
@@ -143,7 +145,8 @@ def charge_stand_fees():
     transactions = []  # To keep track of new transactions for the revenue
 
     for employee in employees:
-        if employee['owns_car'] == 'Y':
+        if employee['using_personal_vehicle'] == 'Y':
+            print(f"Charging fees for employee: {employee['driver_number']}")
             # Calculate the monthly fee with HST
             hst_amount = monthly_stand_fee * hst_rate
             total_amount = monthly_stand_fee + hst_amount
@@ -153,24 +156,24 @@ def charge_stand_fees():
 
             # Prepare the transaction record
             transaction = {
-                'Transaction ID': next_transaction_number,
-                'Date': datetime.today().strftime('%m/%d/%Y'),
-                'Description': "Monthly Stand Fees",
-                'Driver Number': employee['driver_number'],
-                'Amount': monthly_stand_fee,
+                'transaction_id': next_transaction_number,
+                'date': datetime.today().strftime('%m/%d/%Y'),
+                'description': "Monthly Stand Fees",
+                'driver_number': employee['driver_number'],
+                'amount': monthly_stand_fee,
                 'HST': hst_amount,
-                'Total': total_amount
+                'total': total_amount
             }
             transactions.append(transaction)
 
             next_transaction_number += 1
 
     # Append new transactions to Revenues.txt
-    append_to_revenues(transactions, "Revenues.txt")
+    append_to_revenues(transactions, "Revenues_test.txt")
 
     # Update the next transaction number in defaults
     defaults['Next transaction number'] = str(next_transaction_number)
-    write_defaults(defaults, "Defaults.txt")
+    write_defaults(defaults, "Defaults_test.dat")
 
     # Write updated employees back to Employees.txt
     write_employees(employees, "Employees_test.txt")
@@ -190,13 +193,13 @@ def append_to_revenues(transactions, filename="Revenues_test.txt"):
             for transaction in transactions:
                 # Format the transaction into a string line, using format_currency for amounts
                 line = ','.join([
-                    str(transaction['Transaction ID']),
-                    transaction['Date'],
-                    transaction['Description'],
-                    str(transaction['Driver Number']),
-                    format_currency(transaction['Amount']),
+                    str(transaction['transaction_id']),
+                    transaction['date'],
+                    transaction['description'],
+                    str(transaction['driver_number']),
+                    format_currency(transaction['amount']),
                     format_currency(transaction['HST']),
-                    format_currency(transaction['Total'])
+                    format_currency(transaction['total'])
                 ])
                 file.write(line + '\n')
     except Exception as e:

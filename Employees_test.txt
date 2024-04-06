@@ -1,8 +1,4 @@
-Steven, Norris, 1 alexander, Clarenville, NL, A5A1A3, (709)466-3754, 02/02/1994, 30, Bidinsurance, BID333, Y, SN7654321, 02/2026, 1924
-Stebe, Doofus, 12 home place, St Johns, NL, A3A1A2, 4667773838, 02/02/1994, 30, Insureyou, INSURE12, Y, SD7654321, 02/2025, 1925
-1926, Dude, Guy, 101 House Street, Capital Town, QC, L0L0L8, (101)404-6969, 01/30/1992, 32, NoInsurance, NO1011, N, DG1234567, 04/2028
-1927, Steven, Norris, 12 Burger Street, Bunyum's Cove, BC, A2A1A2, 7094378454, 01/05/2006, 18, SCAMTOWN, SCTP00P, N, SN2004339, 02/4043
-1928, John, Doe, 123 Burger Lane, Burgertown, NL, A1A2A2, 406-304-4444, 05/02/2024, -1, okinsurance, BEEP404, N, JD1234567, 02/2032
-1929, Big, Mann, 12 Forest Drive, St John's, NL, A5A4A1, 7096664532, 02/02/2002, 22, zen insurance, ZEN420, N, BM2002111, 04/2027
-1930, Finance, Bro, 12 Bank Dr, St John's, NL, A5A1A3, 7094263443, 06/01/1990, 33, geico, GUY33333, N, FB4320011, 02/2035, 0
-1931, Jane, Doe, 12 Sandwhich Lane, St John's, NL, A8A3S2, (709)427-9413, 01/01/1984, 40, RockCoverage Co., ROC345, N, JD3042111, 03/2025, 0
+1930, Finance, Bro, 12 Bank Dr, St John's, NL, A5A1A3, 7094263443, 06/01/1990, 33, geico, GUY33333,N, FB4320011, 02/2035, 0
+1931, Jane, Doe, 12 Sandwhich Lane, St John's, NL, A8A3S2, (709)427-9413, 01/01/1984, 40, RockCoverage Co., ROC345,N, JD3042111, 03/2025, 0
+1932, Joe, Mama, 12 Rock Garden, St. John's, NL, A5A1A3, 1234567890, 01/02/1986, 38, geico, GUY532,Y, JM1234567, 02/2043,402.5
+1933, Steven, Norris, 12 Lake Drive, St John's, NL, A5A1A3, 7094273663, 02/01/1993, 31, geico, GUY430233,Y, SN1234567, 02/2026,402.5
