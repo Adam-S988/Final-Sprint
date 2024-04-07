@@ -107,7 +107,8 @@ def program1():
 
 
     # Show entered info to user, ask them to confirm before saving or start over.
-        print(user_info)
+        print(f"PLEASE REVIEW THE EMPLOYEE DATA BEFORE SAVING.")
+        print(f"----------------------------------------------")
         for key, value in user_info.items():
             print(f"|-{key:>22s} -- {value:<33s}-|")
     
@@ -118,7 +119,7 @@ def program1():
             "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
             )
         
-        # Saving Data Process
+        # Saving Data Process starts if user chooses yes
         if Save_confirmation.lower() =='y':
             
         # Prepare for the next employee by incrementing the driver number
@@ -129,7 +130,7 @@ def program1():
             FV.write_defaults(defaults)    
                     
         # Append the new employee's information to Employees.dat
-            SN.append_employee_data(user_info, filename="Employees_test.txt")
+            SN.append_employee_data(user_info, filename="Employees.txt")
             print(f"--- SUCCESS!! ---")
             print(f" DEFAULT SETTINGS SUCCESFULLY UPDATED AND SAVED TO  Defaults.dat !")
             print(f" EMPLOYEE DATA FOR EMPLOYEE #{user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']}, HAS BEEN SUCCESFULLY SAVED TO  Employees.txt !")
@@ -213,16 +214,35 @@ def program8():
 
 #RUNS MAIN MENU IF THIS FILE IS INITIALIZED
 if __name__ == "__main__":
-    today = datetime.today()
-    fees_charged = False  # Flag to indicate whether fees were charged
 
-    # Check if today is the first day of the month
-    if today.day == 6:        
-        FV.charge_stand_fees()  
-        fees_charged = True
-        message = "IMPORTANT NOTICE! MONTHLY STANDARD FEES HAVE BEEN APPLIED!! "
+    last_run_date_str = defaults.get('Last Run Date')
+    today_str = datetime.today().strftime('%m/%d/%Y')
+
+    if last_run_date_str:
+        # Parse the last run date and today's date using MM/DD/YYYY format
+        last_run_date = datetime.strptime(last_run_date_str, '%m/%d/%Y')
+        today = datetime.strptime(today_str, '%m/%d/%Y')
+
+        # Check if the current month is greater than the last run month OR
+        # if the current year is greater than the last runtime's year
+        # This accounts for the program not being run on the 1st, ensuring the fees are not missed.
+        if today.year > last_run_date.year or (today.year == last_run_date.year and today.month > last_run_date.month):
+            print("CHARGING MONTHLY FEES...")
+            next_transaction_number = FV.charge_stand_fees()
+            defaults['Next transaction number'] = str(next_transaction_number)
+            message = "IMPORTANT NOTICE! MONTHLY STANDARD FEES HAVE BEEN APPLIED!! "
+        else:
+            message = "NO STANDARD FEES APPLIED TODAY. "
     else:
-        message = "NO STANDARD FEES APPLIED TODAY. "
+        message = "FIRST OPERATION OF PROGRAM DETECTED. TODAY'S DATE HAS BEEN LOGGED. "
+
+    # Update 'Last Run Date' in defaults to today, using MM/DD/YYYY format
+    defaults['Last Run Date'] = today_str
+
+    # Write the updated defaults back to the file
+    FV.write_defaults(defaults, "Defaults.dat")    
+    
+    # prompt user to hit enter before continuing program
     print()
     input(f"{message}PRESS ENTER TO CONTINUE TO MAIN MENU")
 

@@ -19,7 +19,7 @@ import calendar
 
 
 # Reads default.dat
-def read_defaults(filename="Defaults_test.dat"):
+def read_defaults(filename="Defaults.dat"):
     '''
     Reads key-value pairs from a defaults file and returns them as a dictionary.
 
@@ -39,7 +39,7 @@ def read_defaults(filename="Defaults_test.dat"):
 
 
 # Writes default.dat
-def write_defaults(defaults, filename="Defaults_test.dat"):
+def write_defaults(defaults, filename="Defaults.dat"):
     '''
     Writes the contents of a dictionary to the specified file as key-value pairs.
 
@@ -56,7 +56,7 @@ def write_defaults(defaults, filename="Defaults_test.dat"):
 
 
 # Reads Employees.txt
-def read_employees(filename="Employees_test.txt"):
+def read_employees(filename="Employees.txt"):
     '''
     Reads employee data from a file and returns a list of dictionaries, each representing an employee.
 
@@ -68,6 +68,14 @@ def read_employees(filename="Employees_test.txt"):
     employees = []
     try:
         with open(filename, 'r') as file:
+            # Check if the file is empty
+            first_char = file.read(1)
+            if not first_char:
+                print(f"No employees to read. {filename} is empty.")
+                return employees  # Return an empty list if the file is empty
+
+            # If the file is not empty, rewind to the start and process normally
+            file.seek(0)
             for line in file:
                 parts = line.strip().split(',')
                 # Map the parts of each line to a dictionary using the correct keys
@@ -97,7 +105,7 @@ def read_employees(filename="Employees_test.txt"):
 
 
 # Writes to Employees.txt
-def write_employees(employees, filename="Employees_test.txt"):
+def write_employees(employees, filename="Employees.txt"):
     '''
     Writes a list of employee dictionaries to a file.
 
@@ -137,8 +145,8 @@ def charge_stand_fees():
     print("CHARGING STANDARD FEES...")
 
     # Read defaults and employees
-    defaults = read_defaults("Defaults_test.dat")
-    employees = read_employees("Employees_test.txt")
+    defaults = read_defaults("Defaults.dat")
+    employees = read_employees("Employees.txt")
 
     monthly_stand_fee = float(defaults['Monthly stand fee'])
     hst_rate = float(defaults['HST rate'].rstrip('%')) / 100
@@ -174,18 +182,20 @@ def charge_stand_fees():
             next_transaction_number += 1
 
     # Append new transactions to Revenues.txt
-    append_to_revenues(transactions, "Revenues_test.txt")
+    append_to_revenues(transactions, "Revenues.txt")
 
     # Update the next transaction number in defaults
     defaults['Next transaction number'] = str(next_transaction_number)
-    write_defaults(defaults, "Defaults_test.dat")
+    write_defaults(defaults, "Defaults.dat")
 
     # Write updated employees back to Employees.txt
-    write_employees(employees, "Employees_test.txt")
+    write_employees(employees, "Employees.txt")
 
+    # Return the updated next_transaction_number
+    return next_transaction_number
 
 # Writes required values to the revenue file
-def append_to_revenues(transactions, filename="Revenues_test.txt"):
+def append_to_revenues(transactions, filename="Revenues.txt"):
     '''
     Appends a list of transaction dictionaries to the Revenues.txt file.
 
