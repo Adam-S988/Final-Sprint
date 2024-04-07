@@ -5,8 +5,6 @@
 
 MINIMUM_HIRING_AGE = 18
 
-
-
 # imports required to be added to main program for ensuring these functions work
 # Not necessarily used in this version, but are being left in for possible soon-to-be implemented functions
 import string
@@ -104,7 +102,7 @@ def collect_user_info(driver_number):
         "PLEASE ENTER A VALID INSURANCE POLICY NUMBER (6-9 characters, alphanumeric)."
         ).upper()
     
-  # Asks if user owns their own vehicle, or if they do not.
+  # Asks if the employee will be using their own vehicle.
     owns_car = FV.prompt_and_validate(
         "WILL THE EMPLOYEE BE USING THEIR OWN VEHICLE?(Enter Y/N for Yes/No): ",
         ['yes_no',],
@@ -112,7 +110,7 @@ def collect_user_info(driver_number):
         ).upper()
     
 
-  # CALCULATED FIELDS: Collects day, month, year, and assembles/validates as a full date of birth, then calculates the age based on today's date.
+  # CALCULATED FIELD: Collects day, month, year, and assembles/validates as a full date of birth, then calculates the age based on today's date.
     while True:        
         print("PLEASE ENTER THE EMPLOYEE DATE OF BIRTH")
         date_of_birth_datetime, date_of_birth = FV.validate_full_date()
@@ -163,7 +161,7 @@ def collect_and_validate_drivers_license(user_info):
 
     while True:
         drivers_license = input(f"ENTER THE EMPLOYEE'S 7-DIGIT LICENSE NUMBER (starting with initials {initials}): ").upper().strip()
-        # Newfoundland and Labrador driver's license pattern: 2 letters followed by 7 digits ( I probably shouldnt make them type their own intials... but it is what it is now.)
+        # Newfoundland and Labrador driver's license pattern: 2 letters followed by 7 digits 
         nl_license_pattern = f"^{initials}\\d{{7}}$"
 
         # Validate driver's license format (initials followed by 7 digits)        
@@ -188,7 +186,7 @@ def collect_and_validate_drivers_license(user_info):
     return {'license_number': drivers_license, 'license_expiry': expiry_date.strftime("%m/%Y")}
 
 
-# Sends employee data to Employees.dat
+# Sends employee data to Employees.txt
 def append_employee_data(employee_data, filename="Employees.txt"):
     try:
         with open(filename, 'a') as file: # Using context manager for safe file handling
@@ -197,3 +195,102 @@ def append_employee_data(employee_data, filename="Employees.txt"):
             file.write(f"{employee_str}\n") # my hate for newline is superseded by my hate for data files. pls no judge.
     except Exception as e:
         print(f"Error appending to {filename}: {e}")
+
+# Enter a New Employee (driver)
+def program1(defaults):
+    '''
+    Enter a New Employee (driver)
+    Updates defaults.dat and saves to Employees.txt
+    '''
+    print()
+    print()
+    print()
+
+  # Read default settings, specifically looking for the next available driver number
+    while True: 
+               
+        next_driver_number = int(defaults['Next driver number'])
+        print(f"______________________________")
+        print()
+        print(f"---NOW CREATING PROFILE---")
+        print(f" --DRIVER NUMBER # {next_driver_number}--")
+        print(f"______________________________")
+
+    # Collect user information through the employee functions module
+        user_info = collect_user_info(str(next_driver_number))
+        license_info = collect_and_validate_drivers_license(user_info)
+                
+    # Update user_info with license information and the next driver number
+        user_info.update(license_info)
+        user_info['driver_number'] = str(next_driver_number) # Store driver_number in user_info as a string
+
+    # Add starting balance of $0 to the file
+        user_info['balance'] = 0
+        user_info['balance'] = str(user_info['balance']) # Convert to a string for saving
+
+
+    # Show entered info to user, ask them to confirm before saving or start over.
+        print()
+        print(f"        PLEASE REVIEW THE EMPLOYEE DATA BEFORE SAVING        ")
+        print(f"-------------------------------------------------------------")
+        for key, value in user_info.items():
+            print(f"|- {key:<24s} -- --  {value:<26s} -|")
+
+        print()
+        print(f"PLEASE REVIEW THE EMPLOYEE DATA BEFORE SAVING.")
+        Save_confirmation = FV.prompt_and_validate(
+            "SAVE EMPLOYEE DATA? (Y/N):  ",
+            "yes_no",
+            "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
+            )
+        
+        # Saving Data Process starts if user chooses yes
+        if Save_confirmation.lower() =='y':
+            
+        # Prepare for the next employee by incrementing the driver number
+            next_driver_number += 1
+            defaults['Next driver number'] = str(next_driver_number)
+                    
+        # Write updated defaults back to file
+            FV.write_defaults(defaults)    
+                    
+        # Append the new employee's information to Employees.dat
+            append_employee_data(user_info, filename="Employees.txt")
+            print(f"--- SUCCESS!! ---")
+            print(f" DEFAULT SETTINGS SUCCESFULLY UPDATED AND SAVED TO  Defaults.dat !")
+            print(f" EMPLOYEE DATA FOR EMPLOYEE #{user_info['driver_number']}: {user_info['first_name']} {user_info['last_name']}, HAS BEEN SUCCESFULLY SAVED TO  Employees.txt !")
+            print()
+            # Ask if the user wants to input another employee
+            if user_info.get('using_personal_vehicle', 'Y').lower() == 'n':  # Check if user does not own a vehicle
+                continue_to_program4 = FV.prompt_and_validate(
+                    "CONTINUE TO TRACK CAR RENTALS? (Y/N): ",
+                    "yes_no",
+                    "PLEASE ENTER Y TO CONTINUE TO TRACK CAR RENTALS. ENTER N TO SKIP."
+                    )
+                if continue_to_program4.lower() == 'y':
+                    FV.program4()                    
+            
+            add_another = FV.prompt_and_validate(
+                "WOULD YOU LIKE TO CREATE ANOTHER EMPLOYEE FILE? (Yes/no as Y/N): ",
+                "yes_no",
+                "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
+                )
+                    
+            if add_another.lower() != 'y':
+                        print()
+                        print("RETURNING TO MAIN MENU...")
+                        print()
+                        break  # Exiting the loop to return to the main menu
+        else:
+            # If the user decides not to save, they're prompted to confirm starting over or returning to the main menu
+            print()
+            restart_or_menu = FV.prompt_and_validate(
+                "START OVER WITH A NEW EMPLOYEE FILE? (Y/N): ",
+                "yes_no",
+                "PLEASE ENTER Y TO INDICATE YES. ENTER N TO INDICATE NO."
+            )
+            if restart_or_menu.lower() != 'y':
+                print("RETURNING TO MAIN MENU...")
+                break
+
+    return defaults

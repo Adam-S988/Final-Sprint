@@ -18,6 +18,13 @@ import re
 import calendar
 
 
+# Track Car Rentals, moved her to prevent circular imports from main to other modules.
+def program4():
+    print()
+    print("placeholder4")
+    print()
+
+
 # Reads default.dat
 def read_defaults(filename="Defaults.dat"):
     '''
