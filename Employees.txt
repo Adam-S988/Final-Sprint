@@ -1,0 +1,3 @@
+1922, John, Doe, 1 House Lane, St John's, NL, A5A1A3, 709-437-4848, 01/02/2000, 24, nl insurance ltd., ADD005,Y, JD2034032, 02/2025,1006.25
+1923, Joe, Mama, 14 Garden Cresc, St John's, NL, A5A1A3, 709-437-5668, 01/02/1967, 57, GoodLuck Insurance, LUC456, Y, JM4325522, 06/2038, 0
+1924, Hot, Dog, 14 Mustard Place, Ketchup Town, QC, B1G0N3, 409-555-3543, 09/15/2001, 22, RelishIt Ltd., LOL404, Y, HD8335005, 05/2025, 0
