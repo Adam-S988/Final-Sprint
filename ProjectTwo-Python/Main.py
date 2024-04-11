@@ -5,6 +5,7 @@
 from datetime import datetime
 import Functions as FV
 import NewDriver as ND
+import MonthlyHighlight as MH
 
 
 
@@ -62,7 +63,7 @@ def main_menu():
         elif choice == '7':
             program7()        
         elif choice == '8':
-            program8()
+            MH.program8()
         elif choice == '9':
             print("EXITING PROGRAM")
             break
@@ -74,10 +75,7 @@ def main_menu():
 ### PLACEHOLDER COMPANY PROGRAMS ###
 
 # Enter Company Revenues.
-def program2():
-    print()
-    print("placeholder2")
-    print()
+
 
 # Enter Company Expenses.
 def program3():
@@ -104,9 +102,9 @@ def program7():
     print()
 
 # Your report - add description here.
-def program8():
+def program2():
     print()
-    print("placeholder8")
+    print("placeholder2")
     print()
 
 
