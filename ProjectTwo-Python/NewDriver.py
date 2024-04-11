@@ -234,7 +234,7 @@ def program1(defaults):
         print(f"        PLEASE REVIEW THE EMPLOYEE DATA BEFORE SAVING        ")
         print(f"-------------------------------------------------------------")
         for key, value in user_info.items():
-            print(f"|- {key:<24s} -- --  {value:<26s} -|")
+            print(f"|- {key:>24s} -- --  {value:<26s} -|")
 
         print()
         print(f"PLEASE REVIEW THE EMPLOYEE DATA BEFORE SAVING.")
