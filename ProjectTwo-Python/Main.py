@@ -77,6 +77,12 @@ def main_menu():
 # Enter Company Revenues.
 
 
+# Enter Company Revenues .
+def program2():
+    print()
+    print("placeholder2")
+    print()
+
 # Enter Company Expenses.
 def program3():
     print()
@@ -101,11 +107,6 @@ def program7():
     print("placeholder7")
     print()
 
-# Your report - add description here.
-def program2():
-    print()
-    print("placeholder2")
-    print()
 
 
 
