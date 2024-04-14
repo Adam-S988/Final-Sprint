@@ -6,70 +6,7 @@ from datetime import datetime
 import Functions as FV
 import NewDriver as ND
 import MonthlyHighlight as MH
-
-
-
-### MAIN MENU ###
-def main_menu():
-    while True:
-        
-        print(f"                   /\_______________________________________/\ ")
-        print(f"                   ||~~~~~~~~~~ HAB Taxi Services ~~~~~~~~~~||")
-        print(f"                   ||        Company Services System        ||")
-        print(f"                   ||                  :::                  ||")
-        print(f"                   ||               Main Menu               ||")
-        print(f"                   ||_______________________________________||")
-        print(f"                                       |||")
-        print(f"||----||-------------------------------|||")
-        print(f"|| #1 || Enter a New Employee (Driver) |||")
-        print(f"||----||-------------------------------|||----||-------------------------------||")
-        print(f"                                       ||| #2 || Enter Company Revenues        ||")
-        print(f"||----||-------------------------------|||----||-------------------------------||")
-        print(f"|| #3 || Enter Company Expenses        ||| ")
-        print(f"||----||-------------------------------|||----||-------------------------------||")
-        print(f"                                       ||| #4 || Track Car Rentals.            ||")
-        print(f"||----||-------------------------------|||----||-------------------------------||")
-        print(f"|| #5 || Record Employee Payment       |||")
-        print(f"||----||-------------------------------|||----||-------------------------------||")
-        print(f"                                       ||| #6 || Print Company Profit Listing  ||")
-        print(f"||----||-------------------------------|||----||-------------------------------||")
-        print(f"|| #7 || Print Driver Financial Listing|||                                       ")
-        print(f"||----||-------------------------------|||----||-------------------------------||")
-        print(f"                                       ||| #8 || Your report - placeholder     ||")
-        print(f"                                       |||----||-------------------------------||")
-        print(f"                                       |||                                       ")
-        print(f"                       |----|----------------------|----|")
-        print(f"                       | #9 |  -- EXIT PROGRAM --  | #9 |")
-        print(f"                       |----|----------------------|----|")
-        print()              
-        print(f" ____________________________________")
-        print(f"|                                    |")
-        print(f"|---- Enter your choice #(1 - 9) ----|")
-        print(f"|____________________________________|")
-        choice = input("     #")
-        
-        if choice == '1':
-            ND.program1(defaults)
-        elif choice == '2':
-            program2()
-        elif choice == '3':
-            program3()
-        elif choice == '4':
-            FV.program4()
-        elif choice == '5':
-            program5()
-        elif choice == '6':
-            program6()
-        elif choice == '7':
-            program7()        
-        elif choice == '8':
-            MH.program8()
-        elif choice == '9':
-            print("EXITING PROGRAM")
-            break
-        else:
-            print("INVALID CHOICE, PLEASE TRY AGAIN.")
-
+import CompanyProfitListing as PL
 
 
 ### PLACEHOLDER COMPANY PROGRAMS ###
@@ -106,6 +43,70 @@ def program7():
     print()
     print("placeholder7")
     print()
+
+
+
+### MAIN MENU ###
+def main_menu():
+    while True:
+        
+        print(f"                   /\_______________________________________/\ ")
+        print(f"                   ||~~~~~~~~~~ HAB Taxi Services ~~~~~~~~~~||")
+        print(f"                   ||        Company Services System        ||")
+        print(f"                   ||                  :::                  ||")
+        print(f"                   ||               Main Menu               ||")
+        print(f"                   ||_______________________________________||")
+        print(f"                                       |||")
+        print(f"||----||-------------------------------|||")
+        print(f"|| #1 || Enter a New Employee (Driver) |||")
+        print(f"||----||-------------------------------|||----||-------------------------------||")
+        print(f"                                       ||| #2 || Enter Company Revenues        ||")
+        print(f"||----||-------------------------------|||----||-------------------------------||")
+        print(f"|| #3 || Enter Company Expenses        ||| ")
+        print(f"||----||-------------------------------|||----||-------------------------------||")
+        print(f"                                       ||| #4 || Track Car Rentals.            ||")
+        print(f"||----||-------------------------------|||----||-------------------------------||")
+        print(f"|| #5 || Record Employee Payment       |||")
+        print(f"||----||-------------------------------|||----||-------------------------------||")
+        print(f"                                       ||| #6 || Print Company Profit Listing  ||")
+        print(f"||----||-------------------------------|||----||-------------------------------||")
+        print(f"|| #7 || Print Driver Financial Listing|||                                       ")
+        print(f"||----||-------------------------------|||----||-------------------------------||")
+        print(f"                                       ||| #8 || Monthly Hightlights Listing   ||")
+        print(f"                                       |||----||-------------------------------||")
+        print(f"                                       |||                                       ")
+        print(f"                       |----|----------------------|----|")
+        print(f"                       | #9 |  -- EXIT PROGRAM --  | #9 |")
+        print(f"                       |----|----------------------|----|")
+        print()              
+        print(f" ____________________________________")
+        print(f"|                                    |")
+        print(f"|---- Enter your choice #(1 - 9) ----|")
+        print(f"|____________________________________|")
+        choice = input("     #")
+        
+        if choice == '1':
+            ND.program1(defaults)
+        elif choice == '2':
+            program2()
+        elif choice == '3':
+            program3()
+        elif choice == '4':
+            FV.program4()
+        elif choice == '5':
+            program5()
+        elif choice == '6':
+            PL.program6()
+        elif choice == '7':
+            program7()        
+        elif choice == '8':
+            MH.program8()
+        elif choice == '9':
+            print("EXITING PROGRAM")
+            break
+        else:
+            print("INVALID CHOICE, PLEASE TRY AGAIN.")
+
 
 
 

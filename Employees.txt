@@ -2,3 +2,4 @@
 1923, Joe, Mama, 14 Garden Cresc, St John's, NL, A5A1A3, 709-437-5668, 01/02/1967, 57, GoodLuck Insurance, LUC456, Y, JM4325522, 06/2038, 0
 1924, Hot, Dog, 14 Mustard Place, Ketchup Town, QC, B1G0N3, 409-555-3543, 09/15/2001, 22, RelishIt Ltd., LOL404, Y, HD8335005, 05/2025, 0
 1925, Steven, Norris, 1 Home Street, Clarenville, NL, A7A4D3, 709-546-2020, 07/02/1994, 29, Yes Coverage, YES222, Y, SN6677445, 06/2026, 0
+1926, Robot, Mann, 13 Treehouse Pl, Clarenville, NL, A5A3A2, 709-427-0011, 01/04/1990, 34, treesurance, TREE4423, Y, RM5043662, 07/2027, 0
