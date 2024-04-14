@@ -1,6 +1,7 @@
-## DESCRIPTION: Main Menu for 5 Python Programs / Sprint 1
+## DESCRIPTION: Main Menu for our Python Programs / Sprint 1. Includes placeholders for options not required for submission.
 ## DATE CREATED: 03/29/2024
-## GROUP: Nine
+## DATE COMPLETED: 04/14/2024
+## GROUP: Nine ( Adam Stevenson, Allison Boone, Brandon Shea, Steven Norris, Charlene McCarthy, Chelsea Slade (Mayne))
 
 from datetime import datetime
 import Functions as FV
